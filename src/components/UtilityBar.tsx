@@ -78,6 +78,7 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const handleMouseEnter = () => {
+        if (window.innerWidth < 1024) return;
         if (hoverTimeoutRef.current) {
             clearTimeout(hoverTimeoutRef.current);
             hoverTimeoutRef.current = null;
@@ -94,6 +95,7 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
     };
 
     const handleMouseLeave = () => {
+        if (window.innerWidth < 1024) return;
         if (isPinnedOpen) return; // Locked open when user clicks trigger button
         if (hoverTimeoutRef.current) {
             clearTimeout(hoverTimeoutRef.current);
@@ -104,6 +106,7 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
     };
 
     const handleNewNoteMouseEnter = () => {
+        if (window.innerWidth < 1024) return;
         if (newNoteHoverTimeoutRef.current) {
             clearTimeout(newNoteHoverTimeoutRef.current);
             newNoteHoverTimeoutRef.current = null;
@@ -119,6 +122,7 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
     };
 
     const handleNewNoteMouseLeave = () => {
+        if (window.innerWidth < 1024) return;
         if (newNoteHoverTimeoutRef.current) {
             clearTimeout(newNoteHoverTimeoutRef.current);
         }
@@ -296,7 +300,13 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
                     <Sparkles className="w-5 h-5 text-amber-400" />
                     <span className="font-bold text-lg tracking-tight text-white">Stickynote</span>
                 </div>
-                <button onClick={() => onAddNote()} className="h-8 px-3 bg-amber-500 rounded-xl text-slate-900 font-bold text-xs flex items-center shadow active:scale-95 transition-transform">
+                <button
+                    onClick={() => {
+                        onAddNote();
+                        if (window.innerWidth < 1024) setIsMobileMenuOpen(false);
+                    }}
+                    className="h-8 px-3 bg-amber-500 rounded-xl text-slate-900 font-bold text-xs flex items-center shadow active:scale-95 transition-transform"
+                >
                     <Plus className="w-4 h-4 stroke-[3]" />
                 </button>
             </div>
@@ -373,7 +383,11 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
                                     onMouseLeave={handleNewNoteMouseLeave}
                                 >
                                     <button
-                                        onClick={() => { onAddNote(); setIsNewNoteOpen(false); }}
+                                        onClick={() => {
+                                            onAddNote();
+                                            setIsNewNoteOpen(false);
+                                            if (window.innerWidth < 1024) setIsMobileMenuOpen(false);
+                                        }}
                                         className="w-full text-left px-3 py-2 text-xs text-slate-200 hover:bg-slate-800 hover:text-white rounded-lg flex items-center gap-2 transition-colors"
                                     >
                                         <div className="w-6 h-6 rounded bg-slate-800 flex items-center justify-center shrink-0">
@@ -382,7 +396,11 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
                                         Standard Note
                                     </button>
                                     <button
-                                        onClick={() => { handleAddTodoTemplate(); setIsNewNoteOpen(false); }}
+                                        onClick={() => {
+                                            handleAddTodoTemplate();
+                                            setIsNewNoteOpen(false);
+                                            if (window.innerWidth < 1024) setIsMobileMenuOpen(false);
+                                        }}
                                         className="w-full text-left px-3 py-2 text-xs text-slate-200 hover:bg-slate-800 hover:text-white rounded-lg flex items-center gap-2 transition-colors mt-0.5"
                                     >
                                         <div className="w-6 h-6 rounded bg-slate-800 flex items-center justify-center shrink-0">
@@ -391,7 +409,11 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
                                         Task Checklist
                                     </button>
                                     <button
-                                        onClick={() => { handleAddQuickNote(); setIsNewNoteOpen(false); }}
+                                        onClick={() => {
+                                            handleAddQuickNote();
+                                            setIsNewNoteOpen(false);
+                                            if (window.innerWidth < 1024) setIsMobileMenuOpen(false);
+                                        }}
                                         className="w-full text-left px-3 py-2 text-xs text-slate-200 hover:bg-slate-800 hover:text-white rounded-lg flex items-center gap-2 transition-colors mt-0.5"
                                     >
                                         <div className="w-6 h-6 rounded bg-slate-800 flex items-center justify-center shrink-0">
@@ -409,6 +431,9 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
                             onClick={(e) => {
                                 e.stopPropagation();
                                 onToggleStickers();
+                                if (window.innerWidth < 1024) {
+                                    setIsMobileMenuOpen(false);
+                                }
                             }}
                             onMouseDown={(e) => e.stopPropagation()}
                             title="Open Buttons & Badges Panel"

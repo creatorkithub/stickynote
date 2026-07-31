@@ -67,6 +67,8 @@ export const Canvas: React.FC<CanvasProps> = ({
         };
 
         const handleTouchStart = (e: TouchEvent) => {
+            const target = e.target as HTMLElement;
+            if (target.closest('.pointer-events-auto')) return;
             onTouchStart(e);
         };
 
@@ -75,6 +77,10 @@ export const Canvas: React.FC<CanvasProps> = ({
                 // Prevent browser zooming/scrolling on mobile
                 e.preventDefault();
             }
+
+            const target = e.target as HTMLElement;
+            if (target.closest('.pointer-events-auto')) return;
+
             onTouchMove(e);
         };
 

@@ -19,15 +19,15 @@ export const ContactPage: React.FC = () => {
                     Have a feature request, spotted a bug, or just want to say hi? We'd love to hear from you. Email us directly at our support address below.
                 </p>
 
-                <div className="mt-8 py-8 px-10 bg-slate-900/80 rounded-3xl border border-slate-800 flex flex-col items-center justify-center gap-6 w-full max-w-md shadow-2xl">
+                <div className="mt-8 py-8 px-5 sm:px-10 bg-slate-900/80 rounded-3xl border border-slate-800 flex flex-col items-center justify-center gap-6 w-full max-w-md shadow-2xl">
                     <span className="text-slate-300 font-bold tracking-wide">Reach out to us:</span>
                     <button
                         onClick={() => window.location.href = `mailto:screenstickynote${String.fromCharCode(64)}gmail.com`}
-                        className="text-amber-400 font-bold hover:text-slate-900 hover:bg-amber-400 bg-amber-500/10 border border-amber-500/20 px-6 py-4 rounded-2xl transition-all shadow-lg active:scale-95 text-base sm:text-lg flex flex-wrap items-center justify-center gap-2 w-full"
+                        className="text-amber-400 font-bold hover:text-slate-900 hover:bg-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 sm:px-6 py-4 rounded-2xl transition-all shadow-lg active:scale-95 text-sm md:text-base lg:text-lg flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 w-full"
                     >
-                        <Mail className="w-5 h-5 shrink-0" />
-                        <span className="whitespace-nowrap">
-                            screenstickynote<span className="text-amber-500/50 hover:text-slate-900/50 mx-1 text-sm pointer-events-none">[at]</span>gmail.com
+                        <Mail className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                        <span className="break-all sm:break-normal leading-tight mt-0.5">
+                            screenstickynote<span className="text-amber-500/50 hover:text-slate-900/50 mx-0.5 sm:mx-1 text-xs sm:text-sm pointer-events-none">[at]</span>gmail.com
                         </span>
                     </button>
 

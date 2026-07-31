@@ -84,7 +84,12 @@ export const StickersDrawer: React.FC<StickersDrawerProps> = ({
                     {badgeList.map((badge) => (
                         <button
                             key={badge.type}
-                            onClick={() => onAddSticker(badge.type)}
+                            onClick={() => {
+                                onAddSticker(badge.type);
+                                if (window.innerWidth < 1024) {
+                                    onClose();
+                                }
+                            }}
                             className="group p-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/50 hover:border-slate-500/80 transition-all flex items-center gap-3 text-left cursor-pointer active:scale-95 shadow-sm"
                         >
                             {/* 3D Circular Sticker Preview */}

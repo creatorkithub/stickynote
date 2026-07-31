@@ -194,20 +194,22 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     }, [note.richTextHtml]);
 
     // DRAG LOGIC (Header bar)
-    const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
-        if (note.isPinned) return;
+    const longPressTimeoutRef = useRef<number | null>(null);
+    const touchStartPosRef = useRef<{ x: number, y: number } | null>(null);
 
-        e.stopPropagation();
-        onBringToFront(note.id!);
+    const clearLongPress = () => {
+        if (longPressTimeoutRef.current !== null) {
+            clearTimeout(longPressTimeoutRef.current);
+            longPressTimeoutRef.current = null;
+        }
+    };
 
-        const startX = note.x;
-        const startY = note.y;
+    const initiateDrag = (clientX: number, clientY: number) => {
+        const startX = localPos.x;
+        const startY = localPos.y;
         currentPosRef.current = { x: startX, y: startY };
         setLocalPos({ x: startX, y: startY });
         setIsDragging(true);
-
-        const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-        const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
 
         dragStartRef.current = {
             x: clientX,
@@ -215,6 +217,52 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             noteX: startX,
             noteY: startY,
         };
+    };
+
+    const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+        if (note.isPinned) return;
+
+        e.stopPropagation();
+
+        const isTouch = 'touches' in e;
+        if (isTouch) {
+            const touchE = e as React.TouchEvent;
+            if (touchE.touches.length > 1) return;
+
+            const clientX = touchE.touches[0].clientX;
+            const clientY = touchE.touches[0].clientY;
+            touchStartPosRef.current = { x: clientX, y: clientY };
+
+            clearLongPress();
+
+            // Mobile users must long press to move the sticky note
+            longPressTimeoutRef.current = window.setTimeout(() => {
+                onBringToFront(note.id!);
+                initiateDrag(clientX, clientY);
+                if (navigator.vibrate) navigator.vibrate(50);
+                longPressTimeoutRef.current = null;
+            }, 400); // 400ms for long press
+        } else {
+            onBringToFront(note.id!);
+            const mouseE = e as React.MouseEvent;
+            initiateDrag(mouseE.clientX, mouseE.clientY);
+        }
+    };
+
+    const handleHeaderTouchMove = (e: React.TouchEvent) => {
+        if (longPressTimeoutRef.current && touchStartPosRef.current) {
+            const touch = e.touches[0];
+            const dx = touch.clientX - touchStartPosRef.current.x;
+            const dy = touch.clientY - touchStartPosRef.current.y;
+            // Cancel long press drag start if user finger drifts more than 10px
+            if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+                clearLongPress();
+            }
+        }
+    };
+
+    const handleHeaderTouchEnd = () => {
+        clearLongPress();
     };
 
     const rAFRef = useRef<number | null>(null);
@@ -314,13 +362,35 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     }, [note.id, onUpdateSpatial]);
 
     // Stable Listener References
-    const dragMoveRef = useRef(handleDragMove);
-    dragMoveRef.current = handleDragMove;
+    const dragMoveRef = useRef((e: MouseEvent | TouchEvent) => {
+        if ('touches' in e && e.cancelable) {
+            e.preventDefault(); // Prevent native mobile page scroll while dragging note
+        }
+        handleDragMove(e);
+    });
+    dragMoveRef.current = (e: MouseEvent | TouchEvent) => {
+        if ('touches' in e && e.cancelable) {
+            e.preventDefault();
+        }
+        handleDragMove(e);
+    };
+
     const dragEndRef = useRef(handleDragEnd);
     dragEndRef.current = handleDragEnd;
 
-    const resizeMoveRef = useRef(handleResizeMove);
-    resizeMoveRef.current = handleResizeMove;
+    const resizeMoveRef = useRef((e: MouseEvent | TouchEvent) => {
+        if ('touches' in e && e.cancelable) {
+            e.preventDefault();
+        }
+        handleResizeMove(e);
+    });
+    resizeMoveRef.current = (e: MouseEvent | TouchEvent) => {
+        if ('touches' in e && e.cancelable) {
+            e.preventDefault();
+        }
+        handleResizeMove(e);
+    };
+
     const resizeEndRef = useRef(handleResizeEnd);
     resizeEndRef.current = handleResizeEnd;
 
@@ -333,7 +403,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
 
         window.addEventListener('mousemove', onMove);
         window.addEventListener('mouseup', onEnd);
-        window.addEventListener('touchmove', onMove);
+        window.addEventListener('touchmove', onMove, { passive: false });
         window.addEventListener('touchend', onEnd);
 
         return () => {
@@ -353,7 +423,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
 
         window.addEventListener('mousemove', onMove);
         window.addEventListener('mouseup', onEnd);
-        window.addEventListener('touchmove', onMove);
+        window.addEventListener('touchmove', onMove, { passive: false });
         window.addEventListener('touchend', onEnd);
 
         return () => {
@@ -558,6 +628,9 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                 <div
                     onMouseDown={handleDragStart}
                     onTouchStart={handleDragStart}
+                    onTouchMove={handleHeaderTouchMove}
+                    onTouchEnd={handleHeaderTouchEnd}
+                    onTouchCancel={handleHeaderTouchEnd}
                     style={{ backgroundColor: colorProfile.headerHex }}
                     className={`min-h-[36px] px-3 py-1 rounded-t-[5px] flex items-center justify-between cursor-move border-b border-black/10 ${isDragging ? '' : 'transition-opacity hover:opacity-95'
                         } ${note.isPinned ? 'cursor-default' : ''}`}
