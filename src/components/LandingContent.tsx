@@ -187,6 +187,44 @@ export const LandingContent: React.FC = () => {
                     </div>
                 </div>
 
+                {/* How to Use / Getting Started Guide (AdSense Text Content Support) */}
+                <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
+                    <div className="text-center mb-10 w-full border-t border-slate-800/60 pt-16 mt-6">
+                        <h4 className="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center justify-center gap-2 mb-3">
+                            <Info className="w-4 h-4 text-emerald-400" /> Getting Started Guide
+                        </h4>
+                        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-100">How to Master the Infinite Canvas</h3>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full text-slate-400 leading-relaxed">
+                        <div className="bg-slate-900/30 p-8 rounded-[2rem] border border-slate-800/80 hover:bg-slate-900/50 transition-colors shadow-sm">
+                            <h4 className="text-lg font-bold text-slate-200 mb-3 flex items-center gap-3">
+                                <span className="bg-emerald-500/20 text-emerald-400 w-7 h-7 flex items-center justify-center rounded-xl text-xs font-black shadow-sm border border-emerald-500/20">1</span>
+                                Navigating the Workspace
+                            </h4>
+                            <p className="mb-4 text-sm">The core feature of Screen Stickynote is the boundless virtual environment. Unlike traditional note-taking applications that restrict you to vertical scrolling lists, our canvas allows you to move freely in any direction, mirroring a physical whiteboard.</p>
+                            <ul className="list-disc pl-5 space-y-3 text-sm text-slate-500 marker:text-slate-700">
+                                <li><strong className="text-slate-300 font-semibold">Panning:</strong> Hold down the Spacebar, click, and drag with your mouse to pan around your workspace. You can also use the middle mouse button, or standard two-finger swipe on touchpads.</li>
+                                <li><strong className="text-slate-300 font-semibold">Zooming:</strong> Use the scroll wheel while holding the Control (or Command) key to smoothly zoom in and out. This allows you to overview hundreds of sticky notes at once or focus intensely on a single task.</li>
+                                <li><strong className="text-slate-300 font-semibold">Mini-Map Navigation:</strong> Utilize the minimap radar located in the bottom-right corner to instantly jump between distant clusters of notes across your workspace.</li>
+                            </ul>
+                        </div>
+
+                        <div className="bg-slate-900/30 p-8 rounded-[2rem] border border-slate-800/80 hover:bg-slate-900/50 transition-colors shadow-sm">
+                            <h4 className="text-lg font-bold text-slate-200 mb-3 flex items-center gap-3">
+                                <span className="bg-sky-500/20 text-sky-400 w-7 h-7 flex items-center justify-center rounded-xl text-xs font-black shadow-sm border border-sky-500/20">2</span>
+                                Creating & Managing Notes
+                            </h4>
+                            <p className="mb-4 text-sm">Sticky notes can be generated dynamically anywhere on the board. We leverage a highly optimized IndexedDB rendering engine to ensure that even with thousands of elements, your browser maintains a perfectly smooth framerate without lag.</p>
+                            <ul className="list-disc pl-5 space-y-3 text-sm text-slate-500 marker:text-slate-700">
+                                <li><strong className="text-slate-300 font-semibold">Quick Add:</strong> Double-click any empty space on the canvas to instantly spawn a new sticky note precisely at your cursor's location.</li>
+                                <li><strong className="text-slate-300 font-semibold">Rich Text Editing:</strong> Double-click inside any existing sticky note to activate the rich-text editor. You can format text, create bulleted checklists, or apply bold styling directly within the interface.</li>
+                                <li><strong className="text-slate-300 font-semibold">Color Profiling:</strong> Use the primary utility bar to assign distinct color profiles (like Canary Yellow, Sky Blue, Mint Green, Rose) to visually categorize your tasks by priority or project.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
                 {/* FAQ Block (Centered) */}
                 <div className="w-full max-w-3xl mx-auto flex flex-col items-center">
                     <div className="text-center mb-10 w-full border-t border-slate-800/60 pt-16 mt-6">

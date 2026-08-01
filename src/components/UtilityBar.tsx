@@ -15,7 +15,8 @@ import {
     Check,
     Undo2,
     Redo2,
-    Menu
+    Menu,
+    Info
 } from 'lucide-react';
 import type { StickyNote as StickyNoteType, BackupPayload, ColorPaletteId } from '../types/note';
 import { COLOR_LIST, COLOR_PROFILES } from '../constants/palettes';
@@ -719,6 +720,45 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
                         </span>
                     </button>
 
+                    {/* Legal / About Links */}
+                    <div className="w-full h-[1px] lg:w-[1px] lg:h-5 bg-slate-700/80 lg:mx-1 shrink-0" />
+
+                    {/* Mobile: Horizontal Footer Links */}
+                    <div className="lg:hidden flex flex-row flex-wrap items-center justify-center gap-x-5 gap-y-3 w-full py-4 mt-auto mb-2 px-4 shadow-[0_-15px_15px_-15px_rgba(0,0,0,0.5)]">
+                        <a href="/#seo-content" onClick={(e) => {
+                            if (window.location.pathname === '/') {
+                                e.preventDefault();
+                                document.getElementById('seo-content')?.scrollIntoView({ behavior: 'smooth' });
+                            }
+                            setIsMobileMenuOpen(false);
+                        }} className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">About</a>
+                        <a href="/privacy" className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">Privacy</a>
+                        <a href="/terms" className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">Terms</a>
+                        <a href="/contact" className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">Contact</a>
+                    </div>
+
+                    {/* Desktop: Sleek Dropdown */}
+                    <div className="hidden lg:flex relative group shrink-0 flex-col items-center w-auto">
+                        <button className="h-8 w-auto px-2.5 rounded-xl border border-transparent hover:bg-slate-800 text-slate-400 hover:text-white transition-colors text-xs flex items-center justify-center gap-1.5 focus:outline-none group-focus-within:bg-slate-800 group-focus-within:text-white">
+                            <Info className="w-4 h-4 text-emerald-500/80 group-hover:text-amber-400 transition-colors" />
+                            <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
+                        </button>
+
+                        {/* Dropdown Menu */}
+                        <div className="absolute top-full right-0 mt-2 w-36 flex flex-col bg-slate-900/95 backdrop-blur-md border border-slate-700/80 rounded-xl shadow-[0_10px_40px_rgb(0,0,0,0.5)] opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 transition-all duration-200 z-[60] overflow-hidden">
+                            <div className="flex flex-col p-1.5 gap-0.5">
+                                <a href="/#seo-content" onClick={(e) => {
+                                    if (window.location.pathname === '/') {
+                                        e.preventDefault();
+                                        document.getElementById('seo-content')?.scrollIntoView({ behavior: 'smooth' });
+                                    }
+                                }} className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">About App</a>
+                                <a href="/privacy" className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">Privacy Policy</a>
+                                <a href="/terms" className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">Terms of Service</a>
+                                <a href="/contact" className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
