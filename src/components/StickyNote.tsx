@@ -27,6 +27,7 @@ interface StickyNoteProps {
     onUpdateImmediate: (id: number, changes: Partial<StickyNoteType>) => void;
     onDelete: (id: number) => void;
     onBringToFront: (id: number) => void;
+    onSendToBack?: (id: number) => void;
 }
 
 export const StickyNote: React.FC<StickyNoteProps> = ({
@@ -38,9 +39,13 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     onUpdateImmediate,
     onDelete,
     onBringToFront,
+    onSendToBack,
 }) => {
     const [isDragging, setIsDragging] = useState(false);
     const [isResizing, setIsResizing] = useState(false);
+    const [isBold, setIsBold] = useState(false);
+    const [isItalic, setIsItalic] = useState(false);
+    const [isUnderline, setIsUnderline] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [showAlarmPicker, setShowAlarmPicker] = useState(false);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -52,6 +57,33 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     useEffect(() => {
         setTitleInput(note.title || '');
     }, [note.title]);
+
+    // Localized Keyword Shortcuts for single-click Focus
+    useEffect(() => {
+        if (!isFocused) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            const activeEl = document.activeElement;
+            const isTyping = activeEl && (
+                activeEl.tagName === 'INPUT' ||
+                activeEl.tagName === 'TEXTAREA' ||
+                activeEl.getAttribute('contenteditable') === 'true'
+            );
+            if (isTyping) return;
+
+            if (e.ctrlKey || e.metaKey) {
+                if (e.key === ']') {
+                    e.preventDefault();
+                    onBringToFront(note.id!);
+                } else if (e.key === '[') {
+                    e.preventDefault();
+                    if (onSendToBack) onSendToBack(note.id!);
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isFocused, note.id, onBringToFront, onSendToBack]);
 
     const handleSaveTitle = () => {
         const defaultTitle = note.isPinned ? 'PINNED' : 'POST-IT';
@@ -76,9 +108,9 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     const currentPosRef = useRef({ x: note.x, y: note.y });
     const currentSizeRef = useRef({ width: note.width, height: note.height });
 
-    // Auto-close color picker, alarm picker, and delete confirm when clicking outside
+    // Auto-close color picker, alarm picker, delete confirm, and formatting toolbars when clicking outside
     useEffect(() => {
-        if (!showColorPicker && !showAlarmPicker && !showDeleteConfirm) return;
+        if (!showColorPicker && !showAlarmPicker && !showDeleteConfirm && !isFocused) return;
 
         const handleClickOutside = (e: MouseEvent | TouchEvent) => {
             const targetNode = e.target as Node;
@@ -104,6 +136,19 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             document.removeEventListener('touchstart', handleClickOutside);
         };
     }, [showColorPicker, showAlarmPicker, showDeleteConfirm, isFocused]);
+
+    // Track active text formatting (B, I, U) based on cursor position
+    useEffect(() => {
+        const handleSelectionChange = () => {
+            if (isFocused || document.activeElement === editableRef.current) {
+                setIsBold(document.queryCommandState('bold'));
+                setIsItalic(document.queryCommandState('italic'));
+                setIsUnderline(document.queryCommandState('underline'));
+            }
+        };
+        document.addEventListener('selectionchange', handleSelectionChange);
+        return () => document.removeEventListener('selectionchange', handleSelectionChange);
+    }, [isFocused]);
 
     const insertImageIntoContent = useCallback((imgUrl: string) => {
         if (editableRef.current) {
@@ -162,6 +207,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     isDraggingRef.current = isDragging;
     const isResizingRef = useRef(isResizing);
     isResizingRef.current = isResizing;
+    const loadedNoteIdRef = useRef<number | string | null>(null);
 
     // Sync external note spatial changes when not actively dragging/resizing
     useEffect(() => {
@@ -184,14 +230,38 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         }
     }, [note.width, note.height]);
 
-    // Sync contenteditable HTML content when note changes from external broadcast
+    // Initial load of contenteditable HTML. We strictly prevent React state from flowing backwards into 
+    // the DOM after initialization because native contenteditables autonomously manage their own state and caret.
     useEffect(() => {
         if (editableRef.current && note.richTextHtml !== undefined) {
-            if (editableRef.current.innerHTML !== note.richTextHtml) {
+            if (loadedNoteIdRef.current !== note.id) {
                 editableRef.current.innerHTML = note.richTextHtml;
+
+                // MIGRATION: Convert legacy DOM <input> checkboxes to the new DOM format on initialization!
+                const legacyInputs = editableRef.current.querySelectorAll('ul.checklist-list li input[type="checkbox"]');
+                let didMigrate = false;
+                legacyInputs.forEach(input => {
+                    const li = input.closest('li');
+                    if (li) {
+                        if (input.hasAttribute('checked') || (input as HTMLInputElement).checked) {
+                            li.classList.add('checked');
+                        }
+                        input.remove();
+                        didMigrate = true;
+                    }
+                });
+
+                loadedNoteIdRef.current = note.id ?? null;
+
+                if (didMigrate) {
+                    // Instantly sync the clean structural logic back natively!
+                    const richHtml = editableRef.current.innerHTML;
+                    const plainText = editableRef.current.innerText;
+                    onUpdateText(note.id!, { text: plainText, richTextHtml: richHtml });
+                }
             }
         }
-    }, [note.richTextHtml]);
+    }, [note.id, note.richTextHtml]);
 
     // DRAG LOGIC (Header bar)
     const longPressTimeoutRef = useRef<number | null>(null);
@@ -434,6 +504,32 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         };
     }, [isResizing]);
 
+    // Virtual Checkbox Click Interceptor mapping HTML native DOM lists to pure CSS pseudo-states!
+    const handleEditableClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        const target = e.target as HTMLElement;
+        const li = target.nodeName === 'LI' ? target as HTMLLIElement : target.closest('li') as HTMLLIElement | null;
+
+        if (li && li.parentElement?.classList.contains('checklist-list')) {
+            const rect = li.getBoundingClientRect();
+            // Natively, bounding rects map to literal screen space. By dividing against the 
+            // overall structural Canvas Scale, we normalize it safely into universal DOM Pixel Logic bounds!
+            const clickX = (e.clientX - rect.left) / canvasScale;
+            const clickY = (e.clientY - rect.top) / canvasScale;
+
+            // Check if user exactly interacted with the 26x26 absolute pseudo-box hit-zone limit:
+            if (clickX >= 0 && clickX <= 26 && clickY >= 0 && clickY <= 26) {
+                if (li.classList.contains('checked')) {
+                    li.classList.remove('checked');
+                } else {
+                    li.classList.add('checked');
+                }
+                e.preventDefault();
+                e.stopPropagation();
+                handleContentInput();
+            }
+        }
+    };
+
     // CONTENT EDITABLE CHANGE HANDLER
     const handleContentInput = () => {
         if (editableRef.current) {
@@ -443,16 +539,52 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         }
     };
 
+    // Helper to securely map nested contenteditable Node trees
+    const getActiveUL = (): HTMLUListElement | null => {
+        const sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) return null;
+
+        let node: Node | null = sel.focusNode;
+        if (!node || !editableRef.current?.contains(node)) return null;
+
+        // Resolve raw block mappings occasionally thrown by Chrome empty line handling
+        if (node === editableRef.current) {
+            node = editableRef.current.childNodes[sel.focusOffset] || editableRef.current.childNodes[Math.max(0, sel.focusOffset - 1)] || null;
+        }
+        if (!node) return null;
+
+        const elem = node.nodeType === 3 ? node.parentElement : (node as HTMLElement);
+        return elem?.closest('ul') || null;
+    };
+
     // Rich Text ExecCommands
     const formatText = (command: string, value: string | undefined = undefined) => {
+        if (command === 'insertUnorderedList' || command === 'insertOrderedList') {
+            const activeUl = getActiveUL();
+            if (activeUl && activeUl.classList.contains('checklist-list')) {
+                activeUl.classList.remove('checklist-list');
+                activeUl.querySelectorAll('li.checked').forEach(li => li.classList.remove('checked'));
+            }
+        }
+
         document.execCommand(command, false, value);
         handleContentInput();
     };
 
     const insertChecklist = () => {
-        const checklistHtml = `<ul class="checklist-list"><li><input type="checkbox" /> <span>Checklist task</span></li></ul><p><br></p>`;
-        document.execCommand('insertHTML', false, checklistHtml);
-        handleContentInput();
+        const activeUl = getActiveUL();
+        const wasInChecklist = activeUl?.classList.contains('checklist-list') ?? false;
+
+        formatText('insertUnorderedList');
+
+        if (!wasInChecklist) {
+            // Find newly minted UL object mapped by the browser text engine
+            const newUl = getActiveUL();
+            if (newUl) {
+                newUl.classList.add('checklist-list');
+                handleContentInput();
+            }
+        }
     };
 
     // Color Switcher
@@ -493,8 +625,14 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                 onBringToFront(note.id!);
                 setIsFocused(true);
             }}
-            onMouseDown={() => setIsFocused(true)}
-            onTouchStart={() => setIsFocused(true)}
+            onMouseDown={(e) => {
+                e.stopPropagation();
+                setIsFocused(true);
+            }}
+            onTouchStart={(e) => {
+                e.stopPropagation();
+                setIsFocused(true);
+            }}
             className={`absolute top-0 left-0 group postit-curl select-none transition-all duration-200 ease-out ${isDragging || isResizing ? '' : 'hover:scale-[1.025] hover:-translate-y-1'
                 } ${isSelected ? 'ring-4 ring-indigo-500/90 ring-offset-2 ring-offset-slate-900/60 shadow-2xl shadow-indigo-500/40 z-40 scale-[1.01]' : ''
                 } ${isFocused ? 'z-50' : ''}`}
@@ -508,8 +646,6 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                 borderColor: isSelected ? '#6366f1' : 'transparent',
                 borderWidth: isSelected ? '2px' : '0px',
                 borderRadius: '6px',
-                backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden',
                 transformStyle: 'flat',
                 willChange: isDragging ? 'transform' : isResizing ? 'width, height' : 'auto',
                 transition: isDragging || isResizing ? 'none' : 'box-shadow 0.2s ease-in-out, transform 0.2s ease-out',
@@ -632,8 +768,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                     onTouchEnd={handleHeaderTouchEnd}
                     onTouchCancel={handleHeaderTouchEnd}
                     style={{ backgroundColor: colorProfile.headerHex }}
-                    className={`min-h-[36px] px-3 py-1 rounded-t-[5px] flex items-center justify-between cursor-move border-b border-black/10 ${isDragging ? '' : 'transition-opacity hover:opacity-95'
-                        } ${note.isPinned ? 'cursor-default' : ''}`}
+                    className={`min-h-[36px] px-3 py-1 rounded-t-[5px] flex items-center justify-between cursor-move border-b border-black/10 ${note.isPinned ? 'cursor-default' : ''}`}
                 >
                     <div className="flex items-center gap-1.5 opacity-100 min-w-0 flex-1 py-0.5">
                         <GripHorizontal className="w-4 h-4 text-black/80 stroke-[2.2] shrink-0 self-center" />
@@ -780,27 +915,29 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                 )}
 
                 {/* Rich Text Formatting Mini-Toolbar - Hidden by default, drops down on mouse hover */}
-                <div className={`overflow-hidden transition-all duration-200 ease-out bg-black/10 text-black text-xs font-semibold ${isFocused ? 'max-h-12 opacity-100' : 'max-h-0 opacity-0 group-hover:max-h-12 group-hover:opacity-100 focus-within:max-h-12 focus-within:opacity-100'
-                    }`}>
+                <div
+                    onMouseDown={(e) => e.preventDefault()}
+                    className={`overflow-hidden transition-all duration-200 ease-out bg-black/10 text-black text-xs font-semibold ${isFocused ? 'max-h-12 opacity-100' : 'max-h-0 opacity-0 group-hover:max-h-12 group-hover:opacity-100 focus-within:max-h-12 focus-within:opacity-100'
+                        }`}>
                     <div className="px-2 py-1 flex items-center gap-1 border-b border-black/15">
                         <button
-                            onClick={() => formatText('bold')}
+                            onClick={() => { formatText('bold'); setIsBold(document.queryCommandState('bold')); }}
                             title="Bold"
-                            className="p-1 rounded hover:bg-black/15 font-bold text-black"
+                            className={`p-1 rounded font-bold transition-colors ${isBold ? 'bg-black/20 text-black shadow-inner shadow-black/10' : 'hover:bg-black/15 text-black/80 hover:text-black'}`}
                         >
                             <Bold className="w-3.5 h-3.5 stroke-[2.5]" />
                         </button>
                         <button
-                            onClick={() => formatText('italic')}
+                            onClick={() => { formatText('italic'); setIsItalic(document.queryCommandState('italic')); }}
                             title="Italic"
-                            className="p-1 rounded hover:bg-black/15 italic text-black"
+                            className={`p-1 rounded italic transition-colors ${isItalic ? 'bg-black/20 text-black shadow-inner shadow-black/10' : 'hover:bg-black/15 text-black/80 hover:text-black'}`}
                         >
                             <Italic className="w-3.5 h-3.5 stroke-[2.5]" />
                         </button>
                         <button
-                            onClick={() => formatText('underline')}
+                            onClick={() => { formatText('underline'); setIsUnderline(document.queryCommandState('underline')); }}
                             title="Underline"
-                            className="p-1 rounded hover:bg-black/15 underline text-black"
+                            className={`p-1 rounded underline transition-colors ${isUnderline ? 'bg-black/20 text-black shadow-inner shadow-black/10' : 'hover:bg-black/15 text-black/80 hover:text-black'}`}
                         >
                             <Underline className="w-3.5 h-3.5 stroke-[2.5]" />
                         </button>
@@ -852,6 +989,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                         suppressContentEditableWarning
                         onInput={handleContentInput}
                         onPaste={handlePaste}
+                        onClick={handleEditableClick}
                         data-placeholder="Write your note here..."
                         className="note-content-editable text-sm leading-relaxed outline-none min-h-full select-text"
                     />

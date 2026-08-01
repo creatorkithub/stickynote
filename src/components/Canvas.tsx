@@ -21,10 +21,12 @@ interface CanvasProps {
     onUpdateImmediate: (id: number, changes: Partial<StickyNoteType>) => void;
     onDelete: (id: number) => void;
     onBringToFront: (id: number) => void;
+    onSendToBack: (id: number) => void;
     onAddNoteAtPosition: (x: number, y: number) => void;
     onUpdateStickerSpatial: (id: number, spatial: { x: number; y: number }) => void;
     onDeleteSticker: (id: number) => void;
     onBringStickerToFront: (id: number) => void;
+    onSendStickerToBack: (id: number) => void;
 }
 
 export const Canvas: React.FC<CanvasProps> = ({
@@ -43,10 +45,12 @@ export const Canvas: React.FC<CanvasProps> = ({
     onUpdateImmediate,
     onDelete,
     onBringToFront,
+    onSendToBack,
     onAddNoteAtPosition,
     onUpdateStickerSpatial,
     onDeleteSticker,
     onBringStickerToFront,
+    onSendStickerToBack,
 }) => {
     const canvasRef = useRef<HTMLDivElement>(null);
     const [showShortcuts, setShowShortcuts] = React.useState(false);
@@ -130,6 +134,34 @@ export const Canvas: React.FC<CanvasProps> = ({
             window.removeEventListener('touchstart', handleOutsideClick);
         };
     }, [showShortcuts]);
+
+    // Background layout layering global shortcuts
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            const activeEl = document.activeElement;
+            const isTyping = activeEl && (
+                activeEl.tagName === 'INPUT' ||
+                activeEl.tagName === 'TEXTAREA' ||
+                activeEl.getAttribute('contenteditable') === 'true'
+            );
+            if (isTyping) return;
+
+            if (e.ctrlKey || e.metaKey) {
+                if (e.key === ']') {
+                    e.preventDefault();
+                    if (selectedNoteIds.size > 0) selectedNoteIds.forEach(id => onBringToFront(id));
+                    if (selectedStickerIds.size > 0) selectedStickerIds.forEach(id => onBringStickerToFront(id));
+                } else if (e.key === '[') {
+                    e.preventDefault();
+                    if (selectedNoteIds.size > 0) selectedNoteIds.forEach(id => onSendToBack(id));
+                    if (selectedStickerIds.size > 0) selectedStickerIds.forEach(id => onSendStickerToBack(id));
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [selectedNoteIds, selectedStickerIds, onBringToFront, onSendToBack, onBringStickerToFront, onSendStickerToBack]);
 
     // Pointer Down (Pan vs Marquee Select vs Add Note)
     const handleMouseDown = (e: React.MouseEvent) => {
@@ -254,8 +286,6 @@ export const Canvas: React.FC<CanvasProps> = ({
                 style={{
                     transform: `translate(${Math.round(transform.x)}px, ${Math.round(transform.y)}px) scale(${transform.scale})`,
                     transformOrigin: '0 0',
-                    backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden',
                 }}
                 className="absolute top-0 left-0 w-full h-full pointer-events-none"
             >

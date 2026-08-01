@@ -213,6 +213,11 @@ export function App() {
     await db.stickers.update(id, { zIndex: maxZ + 1 });
   }, [rawNotes, rawStickers]);
 
+  const handleSendStickerToBack = useCallback(async (id: number) => {
+    const minZ = Math.min(0, ...rawNotes.map((n) => n.zIndex || 0), ...rawStickers.map((s) => s.zIndex || 0));
+    await db.stickers.update(id, { zIndex: minZ - 1 });
+  }, [rawNotes, rawStickers]);
+
   // Bring Clicked Note to Front (Increase zIndex)
   const handleBringToFront = useCallback(async (id: number) => {
     const maxZ = Math.max(0, ...rawNotes.map((n) => n.zIndex || 0), ...rawStickers.map((s) => s.zIndex || 0));
@@ -220,6 +225,11 @@ export function App() {
     if (currentNote && currentNote.zIndex < maxZ) {
       saveImmediate(id, { zIndex: maxZ + 1 });
     }
+  }, [rawNotes, rawStickers, saveImmediate]);
+
+  const handleSendToBack = useCallback(async (id: number) => {
+    const minZ = Math.min(0, ...rawNotes.map((n) => n.zIndex || 0), ...rawStickers.map((s) => s.zIndex || 0));
+    saveImmediate(id, { zIndex: minZ - 1 });
   }, [rawNotes, rawStickers, saveImmediate]);
 
   // Undo / Redo Actions
@@ -384,10 +394,12 @@ export function App() {
           onUpdateImmediate={saveImmediate}
           onDelete={handleDeleteNote}
           onBringToFront={handleBringToFront}
+          onSendToBack={handleSendToBack}
           onAddNoteAtPosition={handleAddNoteAtPosition}
           onUpdateStickerSpatial={handleUpdateStickerSpatial}
           onDeleteSticker={handleDeleteSticker}
           onBringStickerToFront={handleBringStickerToFront}
+          onSendStickerToBack={handleSendStickerToBack}
         />
 
         {/* Interactive MiniMap */}

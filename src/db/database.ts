@@ -65,7 +65,7 @@ export async function seedDefaultNotesIfEmpty() {
             },
             {
                 text: "🚀 Feature Checklist:\n\n[x] 3D Post-It Curl Shadow\n[x] Rich-text Formatting\n[x] Multi-tab Sync\n[x] JSON Data Portability",
-                richTextHtml: "<h3><b>🚀 Feature Checklist</b></h3><p><b>[x] 3D Post-It Curl Shadow</b></p><p><b>[x] Rich-text Formatting</b></p><p><b>[x] Multi-tab Sync</b></p><p><b>[x] JSON Data Portability</b></p>",
+                richTextHtml: "<h3><b>🚀 Feature Checklist</b></h3><ul class=\"checklist-list\"><li class=\"checked\"><b>3D Post-It Curl Shadow</b></li><li class=\"checked\"><b>Rich-text Formatting</b></li><li class=\"checked\"><b>Multi-tab Sync</b></li><li class=\"checked\"><b>JSON Data Portability</b></li></ul>",
                 x: 360,
                 y: 460,
                 width: 290,
