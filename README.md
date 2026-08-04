@@ -1,6 +1,6 @@
 Screen Stickynote 📌
 
-Screen Stickynote is an offline-first, infinite virtual canvas featuring realistic 3D skeuomorphic stickynotes. Designed for maximum productivity, brainstorming, and task management, it gives you a tactile, engaging organization space directly in your browser.
+Screen Stickynote is an offline-first, infinite virtual canvas featuring realistic 3D skeuomorphic stickynotes. Designed for maximum productivity, brainstorming, and task management, it gives you a tactile, engaging organization space directly in your browser. https://screenstickynote.com/
 
 🚀 Key Features
 
