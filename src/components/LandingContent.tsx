@@ -70,9 +70,9 @@ export const LandingContent: React.FC = () => {
 
                 {/* Core Values Section */}
                 <div className="w-full flex flex-col items-center">
-                    <h4 className="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center justify-center gap-2 mb-10">
+                    <h2 className="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center justify-center gap-2 mb-10">
                         <Shield className="w-4 h-4 text-emerald-400" /> Core Principles
-                    </h4>
+                    </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
                         {/* Card 1 */}
                         <div className="flex flex-col gap-4 p-8 rounded-[2rem] bg-slate-900/40 border border-slate-800/80 hover:border-indigo-500/30 hover:bg-slate-900/60 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] group">
@@ -80,7 +80,7 @@ export const LandingContent: React.FC = () => {
                                 <CloudOff className="w-7 h-7 text-indigo-400" />
                             </div>
                             <div>
-                                <h5 className="text-xl font-bold text-slate-200">100% Offline & Private</h5>
+                                <h3 className="text-xl font-bold text-slate-200">100% Offline & Private</h3>
                                 <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block mt-1">Data ownership by design</span>
                             </div>
                             <p className="text-sm text-slate-400 leading-relaxed">Your ideas belong to you. Screen Stickynote operates completely locally using standard Progressive Web App (PWA) tech. Your notes never touch a third-party server, ensuring complete immunity from data breaches and cloud outages.</p>
@@ -91,7 +91,7 @@ export const LandingContent: React.FC = () => {
                                 <Layers className="w-7 h-7 text-amber-400" />
                             </div>
                             <div>
-                                <h5 className="text-xl font-bold text-slate-200">Infinite Virtual Canvas</h5>
+                                <h3 className="text-xl font-bold text-slate-200">Infinite Virtual Canvas</h3>
                                 <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest block mt-1">Break free from linear lists</span>
                             </div>
                             <p className="text-sm text-slate-400 leading-relaxed">Think in three dimensions. Pan, zoom, and scatter your thoughts across a borderless workspace. Organise complex projects visually, map out mindwebs, or stack notes just like you would on a physical desk.</p>
@@ -102,7 +102,7 @@ export const LandingContent: React.FC = () => {
                                 <Database className="w-7 h-7 text-rose-400" />
                             </div>
                             <div>
-                                <h5 className="text-xl font-bold text-slate-200">Data Portability</h5>
+                                <h3 className="text-xl font-bold text-slate-200">Data Portability</h3>
                                 <span className="text-[10px] font-bold text-rose-400 uppercase tracking-widest block mt-1">No vendor lock-in</span>
                             </div>
                             <p className="text-sm text-slate-400 leading-relaxed">Take your workspace anywhere. Export your entire digital canvas into a single, lightweight JSON file with one click. Restoring your workspace or migrating to entirely new devices takes less than three seconds.</p>
@@ -114,16 +114,16 @@ export const LandingContent: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 w-full">
                     {/* Use Cases */}
                     <div className="flex flex-col">
-                        <h4 className="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center gap-2 mb-8">
+                        <h2 className="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center gap-2 mb-8">
                             <Target className="w-4 h-4 text-sky-400" /> Popular Use Cases
-                        </h4>
+                        </h2>
                         <div className="flex flex-col gap-4">
                             <div className="p-6 rounded-3xl bg-slate-900/30 border border-slate-800/70 flex items-start gap-5 hover:bg-slate-800/40 transition-colors shadow-sm">
                                 <div className="p-3 bg-sky-500/10 rounded-xl shrink-0 border border-sky-500/20">
                                     <Target className="w-6 h-6 text-sky-400" />
                                 </div>
                                 <div>
-                                    <h5 className="text-base font-bold text-slate-200">Project Mapping</h5>
+                                    <h3 className="text-base font-bold text-slate-200">Project Mapping</h3>
                                     <p className="text-sm text-slate-400 leading-relaxed mt-1">Visualise complex development timelines and feature dependencies cleanly in 3D space.</p>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@ export const LandingContent: React.FC = () => {
                                     <Lightbulb className="w-6 h-6 text-amber-300" />
                                 </div>
                                 <div>
-                                    <h5 className="text-base font-bold text-slate-200">Brainstorming</h5>
+                                    <h3 className="text-base font-bold text-slate-200">Brainstorming</h3>
                                     <p className="text-sm text-slate-400 leading-relaxed mt-1">Brain-dump raw concepts effortlessly without worrying about formatting or strict layout bounds.</p>
                                 </div>
                             </div>
@@ -141,7 +141,7 @@ export const LandingContent: React.FC = () => {
                                     <Layout className="w-6 h-6 text-emerald-400" />
                                 </div>
                                 <div>
-                                    <h5 className="text-base font-bold text-slate-200">Daily Kanban</h5>
+                                    <h3 className="text-base font-bold text-slate-200">Daily Kanban</h3>
                                     <p className="text-sm text-slate-400 leading-relaxed mt-1">Arrange and stack sticky notes into highly customized "To-Do," "Doing," and "Done" columns.</p>
                                 </div>
                             </div>
@@ -150,9 +150,9 @@ export const LandingContent: React.FC = () => {
 
                     {/* Tech Highlights */}
                     <div className="flex flex-col">
-                        <h4 className="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center gap-2 mb-8">
+                        <h2 className="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center gap-2 mb-8">
                             <Zap className="w-4 h-4 text-fuchsia-400" /> Tech Highlights
-                        </h4>
+                        </h2>
                         <div className="bg-gradient-to-b from-slate-900 to-slate-900/50 border border-slate-800/80 rounded-[2rem] p-8 shadow-xl h-full flex flex-col justify-center">
                             <ul className="space-y-8">
                                 <li className="flex gap-5 items-start">
@@ -190,18 +190,18 @@ export const LandingContent: React.FC = () => {
                 {/* How to Use / Getting Started Guide (AdSense Text Content Support) */}
                 <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
                     <div className="text-center mb-10 w-full border-t border-slate-800/60 pt-16 mt-6">
-                        <h4 className="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center justify-center gap-2 mb-3">
+                        <p className="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center justify-center gap-2 mb-3">
                             <Info className="w-4 h-4 text-emerald-400" /> Getting Started Guide
-                        </h4>
-                        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-100">How to Master the Infinite Canvas</h3>
+                        </p>
+                        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-100">How to Master the Infinite Canvas</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full text-slate-400 leading-relaxed">
                         <div className="bg-slate-900/30 p-8 rounded-[2rem] border border-slate-800/80 hover:bg-slate-900/50 transition-colors shadow-sm">
-                            <h4 className="text-lg font-bold text-slate-200 mb-3 flex items-center gap-3">
+                            <h3 className="text-lg font-bold text-slate-200 mb-3 flex items-center gap-3">
                                 <span className="bg-emerald-500/20 text-emerald-400 w-7 h-7 flex items-center justify-center rounded-xl text-xs font-black shadow-sm border border-emerald-500/20">1</span>
                                 Navigating the Workspace
-                            </h4>
+                            </h3>
                             <p className="mb-4 text-sm">The core feature of Screen Stickynote is the boundless virtual environment. Unlike traditional note-taking applications that restrict you to vertical scrolling lists, our canvas allows you to move freely in any direction, mirroring a physical whiteboard.</p>
                             <ul className="list-disc pl-5 space-y-3 text-sm text-slate-500 marker:text-slate-700">
                                 <li><strong className="text-slate-300 font-semibold">Panning:</strong> Hold down the Spacebar, click, and drag with your mouse to pan around your workspace. You can also use the middle mouse button, or standard two-finger swipe on touchpads.</li>
@@ -211,10 +211,10 @@ export const LandingContent: React.FC = () => {
                         </div>
 
                         <div className="bg-slate-900/30 p-8 rounded-[2rem] border border-slate-800/80 hover:bg-slate-900/50 transition-colors shadow-sm">
-                            <h4 className="text-lg font-bold text-slate-200 mb-3 flex items-center gap-3">
+                            <h3 className="text-lg font-bold text-slate-200 mb-3 flex items-center gap-3">
                                 <span className="bg-sky-500/20 text-sky-400 w-7 h-7 flex items-center justify-center rounded-xl text-xs font-black shadow-sm border border-sky-500/20">2</span>
                                 Creating & Managing Notes
-                            </h4>
+                            </h3>
                             <p className="mb-4 text-sm">Sticky notes can be generated dynamically anywhere on the board. We leverage a highly optimized IndexedDB rendering engine to ensure that even with thousands of elements, your browser maintains a perfectly smooth framerate without lag.</p>
                             <ul className="list-disc pl-5 space-y-3 text-sm text-slate-500 marker:text-slate-700">
                                 <li><strong className="text-slate-300 font-semibold">Quick Add:</strong> Double-click any empty space on the canvas to instantly spawn a new sticky note precisely at your cursor's location.</li>
@@ -228,10 +228,10 @@ export const LandingContent: React.FC = () => {
                 {/* FAQ Block (Centered) */}
                 <div className="w-full max-w-3xl mx-auto flex flex-col items-center">
                     <div className="text-center mb-10 w-full border-t border-slate-800/60 pt-16 mt-6">
-                        <h4 className="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center justify-center gap-2 mb-3">
+                        <p className="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center justify-center gap-2 mb-3">
                             <Info className="w-4 h-4 text-amber-400" /> Frequently Asked Questions
-                        </h4>
-                        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-100">Everything you need to know.</h3>
+                        </p>
+                        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-100">Everything you need to know.</h2>
                     </div>
                     <div className="space-y-4 w-full">
                         {faqs.map((faq, idx) => (

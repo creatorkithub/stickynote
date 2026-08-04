@@ -739,7 +739,7 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
 
                     {/* Desktop: Sleek Dropdown */}
                     <div className="hidden lg:flex relative group shrink-0 flex-col items-center w-auto">
-                        <button className="h-8 w-auto px-2.5 rounded-xl border border-transparent hover:bg-slate-800 text-slate-400 hover:text-white transition-colors text-xs flex items-center justify-center gap-1.5 focus:outline-none group-focus-within:bg-slate-800 group-focus-within:text-white">
+                        <button aria-label="More information and links" className="h-8 w-auto px-2.5 rounded-xl border border-transparent hover:bg-slate-800 text-slate-400 hover:text-white transition-colors text-xs flex items-center justify-center gap-1.5 focus:outline-none group-focus-within:bg-slate-800 group-focus-within:text-white">
                             <Info className="w-4 h-4 text-emerald-500/80 group-hover:text-amber-400 transition-colors" />
                             <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
                         </button>

@@ -37,7 +37,7 @@ export async function seedDefaultNotesIfEmpty() {
         await db.stickynotes.bulkAdd([
             {
                 text: "👋 Welcome to Screen Stickynote!\n\n• Drag notes anywhere on the infinite canvas\n• Use middle-click or Space + Drag to pan\n• Scroll mouse wheel to zoom in & out\n• PWA offline ready & tabs auto-synced!",
-                richTextHtml: "<h3><b>👋 Welcome to Screen Stickynote!</b></h3><ul><li>Drag notes anywhere on the infinite canvas</li><li>Use middle-click or <b>Space + Drag</b> to pan</li><li>Scroll mouse wheel to zoom in & out</li><li>PWA offline ready & tabs auto-synced!</li></ul>",
+                richTextHtml: "<h2><b>👋 Welcome to Screen Stickynote!</b></h2><ul><li>Drag notes anywhere on the infinite canvas</li><li>Use middle-click or <b>Space + Drag</b> to pan</li><li>Scroll mouse wheel to zoom in & out</li><li>PWA offline ready & tabs auto-synced!</li></ul>",
                 x: 180,
                 y: 140,
                 width: 320,
