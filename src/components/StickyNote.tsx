@@ -13,7 +13,8 @@ import {
     Clock,
     X,
     Image as ImageIcon,
-    CheckSquare
+    CheckSquare,
+    Highlighter
 } from 'lucide-react';
 import type { StickyNote as StickyNoteType, ColorPaletteId } from '../types/note';
 import { COLOR_PROFILES, COLOR_LIST } from '../constants/palettes';
@@ -587,6 +588,20 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         }
     };
 
+    const applyHighlight = (color: string) => {
+        // Remove formatting relies on removing the background color if transparent is requested
+        if (color === 'transparent') {
+            document.execCommand('backColor', false, 'transparent');
+            document.execCommand('hiliteColor', false, 'transparent');
+        } else {
+            // hiliteColor is standard for text highlight, however firefox uses backColor.
+            if (!document.execCommand('hiliteColor', false, color)) {
+                document.execCommand('backColor', false, color);
+            }
+        }
+        handleContentInput();
+    };
+
     // Color Switcher
     const selectColor = (colorId: ColorPaletteId) => {
         onUpdateImmediate(note.id!, { color: colorId });
@@ -978,6 +993,47 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                             onChange={handleImageUpload}
                             className="hidden"
                         />
+                        <div className="w-[1px] h-3 bg-black/30 mx-0.5" />
+                        <div tabIndex={0} className="flex items-center h-[26px] group/highlight cursor-pointer outline-none rounded-full transition-colors hover:bg-black/15 focus-within:bg-black/15">
+                            <div className="p-1 px-1.5 text-black flex items-center justify-center shrink-0">
+                                <Highlighter className="w-3.5 h-3.5 stroke-[2.2]" />
+                            </div>
+                            <div className="flex items-center justify-start overflow-hidden h-full transition-all duration-300 ease-out w-0 opacity-0 group-hover/highlight:w-[90px] group-hover/highlight:opacity-100 group-focus-within/highlight:w-[90px] group-focus-within/highlight:opacity-100">
+                                <div className="flex items-center gap-1 w-[90px] shrink-0 pr-1">
+                                    <button
+                                        onClick={() => applyHighlight('#fef08a')}
+                                        title="Yellow Highlight"
+                                        className="w-3.5 h-3.5 rounded-full hover:scale-110 shadow-[0_0_2px_rgba(0,0,0,0.3)] border border-black/20 transition-transform shrink-0"
+                                        style={{ backgroundColor: '#fef08a' }}
+                                    />
+                                    <button
+                                        onClick={() => applyHighlight('#bbf7d0')}
+                                        title="Green Highlight"
+                                        className="w-3.5 h-3.5 rounded-full hover:scale-110 shadow-[0_0_2px_rgba(0,0,0,0.3)] border border-black/20 transition-transform shrink-0"
+                                        style={{ backgroundColor: '#bbf7d0' }}
+                                    />
+                                    <button
+                                        onClick={() => applyHighlight('#fbcfe8')}
+                                        title="Pink Highlight"
+                                        className="w-3.5 h-3.5 rounded-full hover:scale-110 shadow-[0_0_2px_rgba(0,0,0,0.3)] border border-black/20 transition-transform shrink-0"
+                                        style={{ backgroundColor: '#fbcfe8' }}
+                                    />
+                                    <button
+                                        onClick={() => applyHighlight('#bfdbfe')}
+                                        title="Blue Highlight"
+                                        className="w-3.5 h-3.5 rounded-full hover:scale-110 shadow-[0_0_2px_rgba(0,0,0,0.3)] border border-black/20 transition-transform shrink-0"
+                                        style={{ backgroundColor: '#bfdbfe' }}
+                                    />
+                                    <button
+                                        onClick={() => applyHighlight('transparent')}
+                                        title="Clear Highlight"
+                                        className="w-3.5 h-3.5 rounded-full bg-white flex items-center justify-center hover:scale-110 shadow-[0_0_2px_rgba(0,0,0,0.4)] border border-black/20 transition-transform shrink-0"
+                                    >
+                                        <div className="w-[10px] h-[1px] bg-red-500 rotate-45" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
