@@ -50,6 +50,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [showAlarmPicker, setShowAlarmPicker] = useState(false);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+    const [showHighlighter, setShowHighlighter] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
     const [alarmTimeInput, setAlarmTimeInput] = useState(note.reminderTime || '');
     const [isEditingTitle, setIsEditingTitle] = useState(false);
@@ -103,6 +104,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     const colorBtnRef = useRef<HTMLButtonElement>(null);
     const alarmBtnRef = useRef<HTMLButtonElement>(null);
     const editableRef = useRef<HTMLDivElement>(null);
+    const highlighterRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const dragStartRef = useRef<{ x: number; y: number; noteX: number; noteY: number }>({ x: 0, y: 0, noteX: 0, noteY: 0 });
     const resizeStartRef = useRef<{ x: number; y: number; width: number; height: number }>({ x: 0, y: 0, width: 0, height: 0 });
@@ -111,7 +113,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
 
     // Auto-close color picker, alarm picker, delete confirm, and formatting toolbars when clicking outside
     useEffect(() => {
-        if (!showColorPicker && !showAlarmPicker && !showDeleteConfirm && !isFocused) return;
+        if (!showColorPicker && !showAlarmPicker && !showDeleteConfirm && !showHighlighter && !isFocused) return;
 
         const handleClickOutside = (e: MouseEvent | TouchEvent) => {
             const targetNode = e.target as Node;
@@ -125,6 +127,9 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             if (showDeleteConfirm && !noteRef.current?.contains(targetNode)) {
                 setShowDeleteConfirm(false);
             }
+            if (showHighlighter && !highlighterRef.current?.contains(targetNode)) {
+                setShowHighlighter(false);
+            }
             if (isFocused && !noteRef.current?.contains(targetNode)) {
                 setIsFocused(false);
             }
@@ -136,7 +141,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             document.removeEventListener('mousedown', handleClickOutside);
             document.removeEventListener('touchstart', handleClickOutside);
         };
-    }, [showColorPicker, showAlarmPicker, showDeleteConfirm, isFocused]);
+    }, [showColorPicker, showAlarmPicker, showDeleteConfirm, showHighlighter, isFocused]);
 
     // Track active text formatting (B, I, U) based on cursor position
     useEffect(() => {
@@ -932,9 +937,9 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                 {/* Rich Text Formatting Mini-Toolbar - Hidden by default, drops down on mouse hover */}
                 <div
                     onMouseDown={(e) => e.preventDefault()}
-                    className={`overflow-hidden transition-all duration-200 ease-out bg-black/10 text-black text-xs font-semibold ${isFocused ? 'max-h-12 opacity-100' : 'max-h-0 opacity-0 group-hover:max-h-12 group-hover:opacity-100 focus-within:max-h-12 focus-within:opacity-100'
+                    className={`overflow-hidden transition-all duration-200 ease-out bg-black/10 text-black text-xs font-semibold ${isFocused ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0 group-hover:max-h-24 group-hover:opacity-100 focus-within:max-h-24 focus-within:opacity-100'
                         }`}>
-                    <div className="px-2 py-1 flex items-center gap-1 border-b border-black/15">
+                    <div className="px-2 py-1 flex flex-wrap items-center gap-1 border-b border-black/15">
                         <button
                             onClick={() => { formatText('bold'); setIsBold(document.queryCommandState('bold')); }}
                             title="Bold"
@@ -994,38 +999,41 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                             className="hidden"
                         />
                         <div className="w-[1px] h-3 bg-black/30 mx-0.5" />
-                        <div tabIndex={0} className="flex items-center h-[26px] group/highlight cursor-pointer outline-none rounded-full transition-colors hover:bg-black/15 focus-within:bg-black/15">
-                            <div className="p-1 px-1.5 text-black flex items-center justify-center shrink-0">
+                        <div ref={highlighterRef} className={`flex items-center h-[26px] outline-none rounded-full transition-colors ${showHighlighter ? 'bg-black/15' : 'hover:bg-black/10'}`}>
+                            <button
+                                onClick={(e) => { e.preventDefault(); setShowHighlighter(!showHighlighter); }}
+                                className="p-1 px-1.5 text-black flex items-center justify-center shrink-0 w-[26px]"
+                            >
                                 <Highlighter className="w-3.5 h-3.5 stroke-[2.2]" />
-                            </div>
-                            <div className="flex items-center justify-start overflow-hidden h-full transition-all duration-300 ease-out w-0 opacity-0 group-hover/highlight:w-[90px] group-hover/highlight:opacity-100 group-focus-within/highlight:w-[90px] group-focus-within/highlight:opacity-100">
+                            </button>
+                            <div className={`flex items-center justify-start overflow-hidden h-full transition-all duration-300 ease-out shrink-0 ${showHighlighter ? 'w-[90px] opacity-100' : 'w-0 opacity-0'}`}>
                                 <div className="flex items-center gap-1 w-[90px] shrink-0 pr-1">
                                     <button
-                                        onClick={() => applyHighlight('#fef08a')}
+                                        onClick={() => { applyHighlight('#fef08a'); setShowHighlighter(false); }}
                                         title="Yellow Highlight"
                                         className="w-3.5 h-3.5 rounded-full hover:scale-110 shadow-[0_0_2px_rgba(0,0,0,0.3)] border border-black/20 transition-transform shrink-0"
                                         style={{ backgroundColor: '#fef08a' }}
                                     />
                                     <button
-                                        onClick={() => applyHighlight('#bbf7d0')}
+                                        onClick={() => { applyHighlight('#bbf7d0'); setShowHighlighter(false); }}
                                         title="Green Highlight"
                                         className="w-3.5 h-3.5 rounded-full hover:scale-110 shadow-[0_0_2px_rgba(0,0,0,0.3)] border border-black/20 transition-transform shrink-0"
                                         style={{ backgroundColor: '#bbf7d0' }}
                                     />
                                     <button
-                                        onClick={() => applyHighlight('#fbcfe8')}
+                                        onClick={() => { applyHighlight('#fbcfe8'); setShowHighlighter(false); }}
                                         title="Pink Highlight"
                                         className="w-3.5 h-3.5 rounded-full hover:scale-110 shadow-[0_0_2px_rgba(0,0,0,0.3)] border border-black/20 transition-transform shrink-0"
                                         style={{ backgroundColor: '#fbcfe8' }}
                                     />
                                     <button
-                                        onClick={() => applyHighlight('#bfdbfe')}
+                                        onClick={() => { applyHighlight('#bfdbfe'); setShowHighlighter(false); }}
                                         title="Blue Highlight"
                                         className="w-3.5 h-3.5 rounded-full hover:scale-110 shadow-[0_0_2px_rgba(0,0,0,0.3)] border border-black/20 transition-transform shrink-0"
                                         style={{ backgroundColor: '#bfdbfe' }}
                                     />
                                     <button
-                                        onClick={() => applyHighlight('transparent')}
+                                        onClick={() => { applyHighlight('transparent'); setShowHighlighter(false); }}
                                         title="Clear Highlight"
                                         className="w-3.5 h-3.5 rounded-full bg-white flex items-center justify-center hover:scale-110 shadow-[0_0_2px_rgba(0,0,0,0.4)] border border-black/20 transition-transform shrink-0"
                                     >
