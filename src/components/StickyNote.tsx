@@ -934,12 +934,26 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                     </div>
                 )}
 
-                {/* Rich Text Formatting Mini-Toolbar - Hidden by default, drops down on mouse hover */}
+                {/* Content Editable Body Area */}
+                <div className="p-3 flex-1 min-h-0 overflow-y-auto custom-scrollbar flex flex-col">
+                    <div
+                        ref={editableRef}
+                        contentEditable
+                        suppressContentEditableWarning
+                        onInput={handleContentInput}
+                        onPaste={handlePaste}
+                        onClick={handleEditableClick}
+                        data-placeholder="Write your note here..."
+                        className="note-content-editable text-sm leading-relaxed outline-none min-h-full select-text"
+                    />
+                </div>
+
+                {/* Rich Text Formatting Mini-Toolbar - Moved to bottom on mobile to avoid native OS text selection overlap */}
                 <div
                     onMouseDown={(e) => e.preventDefault()}
                     className={`overflow-hidden transition-all duration-200 ease-out bg-black/10 text-black text-xs font-semibold ${isFocused ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0 group-hover:max-h-24 group-hover:opacity-100 focus-within:max-h-24 focus-within:opacity-100'
                         }`}>
-                    <div className="px-2 py-1 flex flex-wrap items-center gap-1 border-b border-black/15">
+                    <div className="px-2 py-1 flex flex-wrap items-center gap-1 border-t border-black/15">
                         <button
                             onClick={() => { formatText('bold'); setIsBold(document.queryCommandState('bold')); }}
                             title="Bold"
@@ -1043,20 +1057,6 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                             </div>
                         </div>
                     </div>
-                </div>
-
-                {/* Content Editable Body Area */}
-                <div className="p-3 flex-1 min-h-0 overflow-y-auto custom-scrollbar flex flex-col">
-                    <div
-                        ref={editableRef}
-                        contentEditable
-                        suppressContentEditableWarning
-                        onInput={handleContentInput}
-                        onPaste={handlePaste}
-                        onClick={handleEditableClick}
-                        data-placeholder="Write your note here..."
-                        className="note-content-editable text-sm leading-relaxed outline-none min-h-full select-text"
-                    />
                 </div>
 
                 {/* Alarm Status Indicator Bar at Note Bottom */}
