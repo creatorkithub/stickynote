@@ -12,6 +12,18 @@
           'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-TGQQBM99');</script>
   <!-- End Google Tag Manager -->
+  <script>
+    // Automatically unregister stale service workers in local development to prevent caching issues
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (regs) {
+          for (var curr of regs) {
+            curr.unregister();
+          }
+        });
+      }
+    }
+  </script>
 
   <!-- Clarity tracking code for https://screenstickynote.com/ -->
   <script>
@@ -95,41 +107,11 @@
     <div id="seo-fallback"
       style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">
       <header style="max-width: 800px; margin: 0 auto; text-align: center;">
-        <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Screen Stickynote - Infinite Virtual Canvas
-          & 3D Stickynotes</h1>
+        <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Screen Stickynote</h1>
         <p style="font-size: 1.125rem; line-height: 1.75; margin-bottom: 2rem;">
-          Enhance your productivity with Screen Stickynote, an offline-first infinite virtual canvas featuring realistic
-          3D skeuomorphic stickynotes. Enjoy real-time cross-tab sync, local backups, and task reminder alarms directly
-          on your desktop.
+          Please enable JavaScript to use the Screen Stickynote application.
         </p>
       </header>
-
-      <main style="max-width: 800px; margin: 0 auto;">
-        <section style="margin-bottom: 2rem;">
-          <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Why Use Screen Stickynote?</h2>
-          <p style="margin-bottom: 1rem; line-height: 1.6;">
-            Screen Stickynote provides an immersive, infinite board where you can place digital post-its anywhere. It is
-            an online whiteboard designed for maximum productivity and completely offline functionality.
-          </p>
-          <p style="margin-bottom: 1rem; line-height: 1.6;">
-            Whether you are brainstorming, organizing tasks, or leaving quick reminders, our 3D stickynotes offer a
-            tactile and engaging experience right in your browser.
-          </p>
-        </section>
-
-        <section style="margin-bottom: 2rem;">
-          <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Key Features & Capabilities</h2>
-          <p style="margin-bottom: 1rem; line-height: 1.6;">
-            Our online stickynotes application includes essential features like task reminders, realistic skeuomorphic
-            design, and seamless cross-tab synchronization. You'll never lose a thought with our local background sync
-            and automatic JSON backups.
-          </p>
-          <p style="margin-bottom: 1rem; line-height: 1.6;">
-            The app utilizes your browser's local storage to ensure your stickynotes remain private and instantly
-            accessible even without an internet connection.
-          </p>
-        </section>
-      </main>
 
       <footer
         style="max-width: 800px; margin: 2rem auto 0; padding-top: 2rem; border-top: 1px solid #334155; text-align: center;">

@@ -65,7 +65,15 @@ export function useCanvasPanZoom(initialScale = 1.0) {
     }, []);
 
     // Zooming with Wheel
-    const handleWheel = useCallback((e: WheelEvent) => {
+    const handleWheel = useCallback((e: WheelEvent | React.WheelEvent) => {
+        // Allow native scrolling when hovering inside sticky note content areas or scrollbars unless Ctrl is held
+        const target = e.target as HTMLElement;
+        if (target.closest('.note-content-editable') || target.closest('.custom-scrollbar')) {
+            if (!e.ctrlKey && !e.metaKey) {
+                return; // Do not prevent default or zoom, let browser handle the vertical scroll
+            }
+        }
+
         e.preventDefault();
         const zoomFactor = e.deltaY < 0 ? 1.08 : 0.92;
 

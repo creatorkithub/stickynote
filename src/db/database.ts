@@ -23,7 +23,6 @@ export class StickyNotesDatabase extends Dexie {
 
 export const db = new StickyNotesDatabase();
 
-// Default starter notes populated on first launch
 export async function seedDefaultNotesIfEmpty() {
     const hasLaunchedBefore = localStorage.getItem('screenstickynote_has_launched');
     if (hasLaunchedBefore) return;
@@ -34,12 +33,16 @@ export async function seedDefaultNotesIfEmpty() {
     if (count === 0) {
         const now = Date.now();
 
+        // Calculate dynamic cluster centers based on user's current viewport display size
+        const cx = typeof window !== 'undefined' ? window.innerWidth / 2 : 683;
+        const cy = typeof window !== 'undefined' ? window.innerHeight / 2 : 384;
+
         await db.stickynotes.bulkAdd([
             {
                 text: "👋 Welcome to Screen Stickynote!\n\n• Drag notes anywhere on the infinite canvas\n• Use middle-click or Space + Drag to pan\n• Scroll mouse wheel to zoom in & out\n• PWA offline ready & tabs auto-synced!",
                 richTextHtml: "<h2><b>👋 Welcome to Screen Stickynote!</b></h2><ul><li>Drag notes anywhere on the infinite canvas</li><li>Use middle-click or <b>Space + Drag</b> to pan</li><li>Scroll mouse wheel to zoom in & out</li><li>PWA offline ready & tabs auto-synced!</li></ul>",
-                x: 180,
-                y: 140,
+                x: Math.round(cx - 335),
+                y: Math.round(cy - 280),
                 width: 320,
                 height: 280,
                 zIndex: 1,
@@ -52,8 +55,8 @@ export async function seedDefaultNotesIfEmpty() {
             {
                 text: "⚡ Real-time Matrix & Alarms\n\n• Debounced 150ms position auto-save\n• 6 Vibrant SaaS color profiles\n• Set alarm reminders with desktop push alerts\n• Export/Import JSON backups in utility bar",
                 richTextHtml: "<h3><b>⚡ Real-time Matrix & Alarms</b></h3><ul><li>Debounced 150ms position auto-save</li><li>6 Vibrant SaaS color profiles</li><li>Set alarm reminders with desktop push alerts</li><li>Export/Import JSON backups in utility bar</li></ul>",
-                x: 540,
-                y: 180,
+                x: Math.round(cx + 25),
+                y: Math.round(cy - 240),
                 width: 310,
                 height: 270,
                 zIndex: 2,
@@ -66,8 +69,8 @@ export async function seedDefaultNotesIfEmpty() {
             {
                 text: "🚀 Feature Checklist:\n\n[x] 3D Post-It Curl Shadow\n[x] Rich-text Formatting\n[x] Multi-tab Sync\n[x] JSON Data Portability",
                 richTextHtml: "<h3><b>🚀 Feature Checklist</b></h3><ul class=\"checklist-list\"><li class=\"checked\"><b>3D Post-It Curl Shadow</b></li><li class=\"checked\"><b>Rich-text Formatting</b></li><li class=\"checked\"><b>Multi-tab Sync</b></li><li class=\"checked\"><b>JSON Data Portability</b></li></ul>",
-                x: 360,
-                y: 460,
+                x: Math.round(cx - 155),
+                y: Math.round(cy + 40),
                 width: 290,
                 height: 240,
                 zIndex: 3,

@@ -225,6 +225,33 @@ export const LandingContent: React.FC = () => {
                     </div>
                 </div>
 
+                {/* Integrated SEO Content Blocks */}
+                <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-300">
+                    <div className="bg-slate-900/40 p-8 rounded-[2rem] border border-slate-800/80 shadow-lg">
+                        <h2 className="text-xl font-bold text-slate-100 mb-4 flex items-center gap-2">
+                            <Sparkles className="w-5 h-5 text-indigo-400" /> Why Use Screen Stickynote?
+                        </h2>
+                        <p className="text-sm leading-relaxed mb-4 text-slate-400">
+                            Screen Stickynote provides an immersive, infinite board where you can place digital post-its anywhere. It is an online whiteboard designed for maximum productivity and completely offline functionality.
+                        </p>
+                        <p className="text-sm leading-relaxed text-slate-400">
+                            Whether you are brainstorming, organizing tasks, or leaving quick reminders, our 3D stickynotes offer a tactile and engaging experience right in your browser.
+                        </p>
+                    </div>
+
+                    <div className="bg-slate-900/40 p-8 rounded-[2rem] border border-slate-800/80 shadow-lg">
+                        <h2 className="text-xl font-bold text-slate-100 mb-4 flex items-center gap-2">
+                            <Layout className="w-5 h-5 text-rose-400" /> Key Features & Capabilities
+                        </h2>
+                        <p className="text-sm leading-relaxed mb-4 text-slate-400">
+                            Our online stickynotes application includes essential features like task reminders, realistic skeuomorphic design, and seamless cross-tab synchronization. You'll never lose a thought with our local background sync and automatic JSON backups.
+                        </p>
+                        <p className="text-sm leading-relaxed text-slate-400">
+                            The app utilizes your browser's local storage to ensure your stickynotes remain private and instantly accessible even without an internet connection.
+                        </p>
+                    </div>
+                </div>
+
                 {/* FAQ Block (Centered) */}
                 <div className="w-full max-w-3xl mx-auto flex flex-col items-center">
                     <div className="text-center mb-10 w-full border-t border-slate-800/60 pt-16 mt-6">

@@ -50,7 +50,7 @@
 
 .note-content-editable img {
   max-width: 100%;
-  max-height: 220px;
+  max-height: 400px;
   object-fit: contain;
   height: auto;
   border-radius: 8px;
@@ -58,6 +58,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(0, 0, 0, 0.1);
   display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .note-content-editable ul {
