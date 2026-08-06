@@ -14,7 +14,9 @@ import {
     X,
     Image as ImageIcon,
     CheckSquare,
-    Highlighter
+    Highlighter,
+    Mic,
+    Upload
 } from 'lucide-react';
 import type { StickyNote as StickyNoteType, ColorPaletteId } from '../types/note';
 import { COLOR_PROFILES, COLOR_LIST } from '../constants/palettes';
@@ -55,6 +57,10 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     const [alarmTimeInput, setAlarmTimeInput] = useState(note.reminderTime || '');
     const [isEditingTitle, setIsEditingTitle] = useState(false);
     const [titleInput, setTitleInput] = useState(note.title || '');
+    const [isRecording, setIsRecording] = useState(false);
+    const [showAudioMenu, setShowAudioMenu] = useState(false);
+    const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+    const audioChunksRef = useRef<BlobPart[]>([]);
 
     useEffect(() => {
         setTitleInput(note.title || '');
@@ -105,15 +111,17 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     const alarmBtnRef = useRef<HTMLButtonElement>(null);
     const editableRef = useRef<HTMLDivElement>(null);
     const highlighterRef = useRef<HTMLDivElement>(null);
+    const audioBtnRef = useRef<HTMLButtonElement>(null);
+    const audioMenuRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const audioInputRef = useRef<HTMLInputElement>(null);
     const dragStartRef = useRef<{ x: number; y: number; noteX: number; noteY: number }>({ x: 0, y: 0, noteX: 0, noteY: 0 });
     const resizeStartRef = useRef<{ x: number; y: number; width: number; height: number }>({ x: 0, y: 0, width: 0, height: 0 });
     const currentPosRef = useRef({ x: note.x, y: note.y });
     const currentSizeRef = useRef({ width: note.width, height: note.height });
 
-    // Auto-close color picker, alarm picker, delete confirm, and formatting toolbars when clicking outside
     useEffect(() => {
-        if (!showColorPicker && !showAlarmPicker && !showDeleteConfirm && !showHighlighter && !isFocused) return;
+        if (!showColorPicker && !showAlarmPicker && !showDeleteConfirm && !showHighlighter && !showAudioMenu && !isFocused) return;
 
         const handleClickOutside = (e: MouseEvent | TouchEvent) => {
             const targetNode = e.target as Node;
@@ -130,6 +138,9 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             if (showHighlighter && !highlighterRef.current?.contains(targetNode)) {
                 setShowHighlighter(false);
             }
+            if (showAudioMenu && !audioMenuRef.current?.contains(targetNode) && !audioBtnRef.current?.contains(targetNode)) {
+                setShowAudioMenu(false);
+            }
             if (isFocused && !noteRef.current?.contains(targetNode)) {
                 setIsFocused(false);
             }
@@ -141,7 +152,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             document.removeEventListener('mousedown', handleClickOutside);
             document.removeEventListener('touchstart', handleClickOutside);
         };
-    }, [showColorPicker, showAlarmPicker, showDeleteConfirm, showHighlighter, isFocused]);
+    }, [showColorPicker, showAlarmPicker, showDeleteConfirm, showHighlighter, showAudioMenu, isFocused]);
 
     // Track active text formatting (B, I, U) based on cursor position
     useEffect(() => {
@@ -156,10 +167,89 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         return () => document.removeEventListener('selectionchange', handleSelectionChange);
     }, [isFocused]);
 
+    const toggleRecording = async () => {
+        if (isRecording) {
+            if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+                mediaRecorderRef.current.stop();
+            }
+            setIsRecording(false);
+            return;
+        }
+
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const mediaRecorder = new MediaRecorder(stream);
+            mediaRecorderRef.current = mediaRecorder;
+            audioChunksRef.current = [];
+
+            mediaRecorder.ondataavailable = (e) => {
+                if (e.data.size > 0) {
+                    audioChunksRef.current.push(e.data);
+                }
+            };
+
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+                const reader = new FileReader();
+                reader.readAsDataURL(audioBlob);
+                reader.onloadend = () => {
+                    const base64data = reader.result;
+                    if (base64data && typeof base64data === 'string') {
+                        insertAudioIntoContent(base64data);
+                    }
+                };
+
+                // Stop all tracks to release microphone
+                stream.getTracks().forEach(track => track.stop());
+            };
+
+            mediaRecorder.start();
+            setIsRecording(true);
+        } catch (error) {
+            console.error("Error accessing microphone:", error);
+            alert("Could not access microphone.");
+        }
+    };
+
+    const insertAudioIntoContent = useCallback((audioUrl: string) => {
+        if (editableRef.current) {
+            editableRef.current.focus();
+            const sel = window.getSelection();
+            if (sel && sel.rangeCount > 0) {
+                const range = sel.getRangeAt(0);
+                if (!editableRef.current.contains(range.commonAncestorContainer)) {
+                    const newRange = document.createRange();
+                    newRange.selectNodeContents(editableRef.current);
+                    newRange.collapse(false);
+                    sel.removeAllRanges();
+                    sel.addRange(newRange);
+                }
+            }
+            const audioHtml = `<div contenteditable="false" class="media-wrapper relative inline-flex w-fit max-w-full group/media align-middle m-0.5 leading-none"><button type="button" class="delete-media-btn absolute -top-2 -right-2 w-5 h-5 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover/media:opacity-100 transition-opacity z-10 shadow-sm border border-white pointer-events-auto cursor-pointer" title="Delete Audio"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button><audio controls src="${audioUrl}" class="rounded-md shadow-sm border border-black/10 block m-0 outline-none"></audio></div>&nbsp;`;
+            document.execCommand('insertHTML', false, audioHtml);
+            if (editableRef.current) {
+                const plainText = editableRef.current.innerText || '';
+                const htmlText = editableRef.current.innerHTML || '';
+                onUpdateText(note.id!, { text: plainText, richTextHtml: htmlText });
+            }
+        }
+    }, [note.id, onUpdateText]);
+
     const insertImageIntoContent = useCallback((imgUrl: string) => {
         if (editableRef.current) {
             editableRef.current.focus();
-            const imgHtml = `<img src="${imgUrl}" alt="Note image" class="my-2 max-w-full rounded-lg shadow-md border border-black/10 block" />`;
+            const sel = window.getSelection();
+            if (sel && sel.rangeCount > 0) {
+                const range = sel.getRangeAt(0);
+                if (!editableRef.current.contains(range.commonAncestorContainer)) {
+                    const newRange = document.createRange();
+                    newRange.selectNodeContents(editableRef.current);
+                    newRange.collapse(false);
+                    sel.removeAllRanges();
+                    sel.addRange(newRange);
+                }
+            }
+            const imgHtml = `<div contenteditable="false" class="media-wrapper relative inline-flex w-fit max-w-full group/media align-middle m-0.5 leading-none"><button type="button" class="delete-media-btn absolute -top-2 -right-2 w-5 h-5 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover/media:opacity-100 transition-opacity z-10 shadow-sm border border-white pointer-events-auto cursor-pointer" title="Delete Image"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button><img src="${imgUrl}" alt="Note image" class="rounded-lg shadow-sm border border-black/10 block m-0 max-h-[300px] object-contain outline-none" /></div>&nbsp;`;
             document.execCommand('insertHTML', false, imgHtml);
             if (editableRef.current) {
                 const plainText = editableRef.current.innerText || '';
@@ -169,7 +259,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         }
     }, [note.id, onUpdateText]);
 
-    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
@@ -177,7 +267,11 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         reader.onload = (event) => {
             const dataUrl = event.target?.result as string;
             if (dataUrl) {
-                insertImageIntoContent(dataUrl);
+                if (file.type.startsWith('audio/')) {
+                    insertAudioIntoContent(dataUrl);
+                } else {
+                    insertImageIntoContent(dataUrl);
+                }
             }
         };
         reader.readAsDataURL(file);
@@ -513,6 +607,20 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     // Virtual Checkbox Click Interceptor mapping HTML native DOM lists to pure CSS pseudo-states!
     const handleEditableClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const target = e.target as HTMLElement;
+
+        // Media Delete Button Intercept
+        const deleteBtn = target.closest('.delete-media-btn');
+        if (deleteBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            const mediaWrapper = target.closest('.media-wrapper');
+            if (mediaWrapper) {
+                mediaWrapper.remove();
+                handleContentInput();
+            }
+            return;
+        }
+
         const li = target.nodeName === 'LI' ? target as HTMLLIElement : target.closest('li') as HTMLLIElement | null;
 
         if (li && li.parentElement?.classList.contains('checklist-list')) {
@@ -532,6 +640,33 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                 e.preventDefault();
                 e.stopPropagation();
                 handleContentInput();
+            }
+        }
+    };
+
+    const handleEditableKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
+            const activeUl = getActiveUL();
+            if (activeUl && activeUl.classList.contains('checklist-list')) {
+                // When pressing Enter inside a checklist, the browser autonomously creates a new <li> 
+                // and clones the parent's classes. If the parent <li> was '.checked', the new one will be too.
+                // We let the browser do its standard DOM manipulation first, then instantly wipe the copied state.
+                setTimeout(() => {
+                    const sel = window.getSelection();
+                    if (!sel || sel.rangeCount === 0) return;
+
+                    let node: Node | null = sel.focusNode;
+                    if (!node) return;
+
+                    const el = node.nodeType === 3 ? node.parentElement : (node as HTMLElement);
+                    const li = el?.closest('li');
+
+                    if (li && li.classList.contains('checked')) {
+                        // Crucially, it's a new bullet natively born checked. We fix it natively:
+                        li.classList.remove('checked');
+                        handleContentInput();
+                    }
+                }, 0);
             }
         }
     };
@@ -691,6 +826,34 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                 >
                     ✕
                 </button>
+            )}
+
+            {/* Floating Audio Menu Popover Overlay (Outside overflow-hidden wrapper) */}
+            {showAudioMenu && (
+                <div
+                    ref={audioMenuRef}
+                    onClick={(e) => e.stopPropagation()}
+                    onMouseDown={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    style={{
+                        transform: `rotate(${-note.rotation}deg)`,
+                    }}
+                    className="absolute bottom-16 left-1/2 -translate-x-1/2 z-[60] bg-slate-900 border border-slate-700/80 rounded-lg p-1.5 shadow-xl transition-all duration-200 pointer-events-auto select-none w-max"
+                >
+                    <button
+                        onClick={(e) => { e.preventDefault(); audioInputRef.current?.click(); setShowAudioMenu(false); }}
+                        className="w-full flex items-center gap-2 px-2.5 py-1.5 text-xs text-white hover:bg-slate-800 rounded font-medium transition-colors"
+                    >
+                        <Upload className="w-3.5 h-3.5 text-blue-400" /> Upload Local Audio
+                    </button>
+                    <div className="w-full h-px bg-slate-800 my-1"></div>
+                    <button
+                        onClick={(e) => { e.preventDefault(); setShowAudioMenu(false); toggleRecording(); }}
+                        className="w-full flex items-center gap-2 px-2.5 py-1.5 text-xs text-white hover:bg-slate-800 rounded font-medium transition-colors"
+                    >
+                        <Mic className="w-3.5 h-3.5 text-rose-400" /> Record Microphone
+                    </button>
+                </div>
             )}
 
             {/* Floating Reminder Alarm Popover Overlay (Outside overflow-hidden wrapper) */}
@@ -940,11 +1103,12 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                         ref={editableRef}
                         contentEditable
                         suppressContentEditableWarning
+                        onKeyDown={handleEditableKeyDown}
                         onInput={handleContentInput}
                         onPaste={handlePaste}
                         onClick={handleEditableClick}
                         data-placeholder="Write your note here..."
-                        className="note-content-editable text-sm leading-relaxed outline-none min-h-full select-text"
+                        className="note-content-editable flex-1 text-sm leading-relaxed outline-none min-h-full select-text"
                     />
                 </div>
 
@@ -1000,7 +1164,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                         <div className="w-[1px] h-3 bg-black/30 mx-0.5" />
                         <button
                             onClick={() => fileInputRef.current?.click()}
-                            title="Insert Image"
+                            title="Insert File or Image"
                             className="p-1 rounded hover:bg-black/15 flex items-center justify-center text-black"
                         >
                             <ImageIcon className="w-3.5 h-3.5 stroke-[2.2]" />
@@ -1009,9 +1173,31 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                             ref={fileInputRef}
                             type="file"
                             accept="image/*"
-                            onChange={handleImageUpload}
+                            onChange={handleFileUpload}
                             className="hidden"
                         />
+                        <input
+                            ref={audioInputRef}
+                            type="file"
+                            accept="audio/*"
+                            onChange={handleFileUpload}
+                            className="hidden"
+                        />
+                        <button
+                            ref={audioBtnRef}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                if (isRecording) {
+                                    toggleRecording();
+                                } else {
+                                    setShowAudioMenu(!showAudioMenu);
+                                }
+                            }}
+                            title={isRecording ? "Stop Recording" : "Voice Options"}
+                            className={`p-1 rounded flex items-center justify-center transition-colors ${isRecording ? 'text-rose-600 bg-rose-100/50 hover:bg-rose-100 animate-pulse outline-none ring-2 ring-rose-500/50' : 'hover:bg-black/15 text-black'}`}
+                        >
+                            <Mic className="w-3.5 h-3.5 stroke-[2.2]" />
+                        </button>
                         <div className="w-[1px] h-3 bg-black/30 mx-0.5" />
                         <div ref={highlighterRef} className={`flex items-center h-[26px] outline-none rounded-full transition-colors ${showHighlighter ? 'bg-black/15' : 'hover:bg-black/10'}`}>
                             <button
