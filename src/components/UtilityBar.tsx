@@ -294,6 +294,7 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
                 <button
                     onClick={() => setIsMobileMenuOpen(true)}
                     className="p-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-200 transition-colors"
+                    aria-label="Open Mobile Menu"
                 >
                     <Menu className="w-5 h-5" />
                 </button>

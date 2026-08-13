@@ -9,10 +9,12 @@ There are no servers, no accounts, no sync delays, and no telemetry tracking. Yo
 ## Key Features
 - **Infinite Virtual Canvas**: Navigate a boundless 2D zoomable and pannable background grid using touch or mouse controls.
 - **Rich Text Sticky Notes**: Create dynamic post-its supporting checklists, bold formatting, highlights, and embedded media.
-- **Native Media Modules**: Natively embed standalone Images and Audio clips (via MediaRecorder). Media elements natively integrate floating deletion wrappers for easy one-click DOM teardown bypassing cursor limitations.
+- **Native Media Modules**: Natively embed standalone Images and Audio clips.
 - **Reminders & Alarms**: Assign strictly timed scheduled reminders to individual sticky notes which passively trigger visual alerts.
-- **JSON Export / Import**: Seamlessly backup or restore the entire database manually, ensuring complete user control over their local data footprint.
-- **PWA Ready**: Natively installable as an offline-capable standalone Progressive Web Application on Windows, Mac, iOS, and Android.
+- **JSON Export / Import**: Seamlessly backup or restore the entire database manually.
+- **PWA Ready**: Natively installable as an offline-capable standalone Progressive Web Application.
+
+To access the app, visit [Screen Stickynote](https://screenstickynote.com/). You can also read our [Privacy Policy](https://screenstickynote.com/privacy) and [Terms of Service](https://screenstickynote.com/terms).
 
 ## Architecture
 - **Framework:** React 18, Vite, TypeScript

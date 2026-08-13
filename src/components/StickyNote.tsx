@@ -1203,6 +1203,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                             <button
                                 onClick={(e) => { e.preventDefault(); setShowHighlighter(!showHighlighter); }}
                                 className="p-1 px-1.5 text-black flex items-center justify-center shrink-0 w-[26px]"
+                                aria-label="Toggle Highlighter"
                             >
                                 <Highlighter className="w-3.5 h-3.5 stroke-[2.2]" />
                             </button>
