@@ -6,13 +6,15 @@ import type { StickyNote, ColorPaletteId } from './types/note';
 import type { StickerBadgeType } from './types/sticker';
 import { useCanvasPanZoom } from './hooks/useCanvasPanZoom';
 import { useAutoSaveSync } from './hooks/useAutoSaveSync';
+import { useIdle } from './hooks/useIdle';
 import { Canvas } from './components/Canvas';
 import { UtilityBar } from './components/UtilityBar';
 import { MiniMap } from './components/MiniMap';
 import { StickersDrawer } from './components/StickersDrawer';
 import { NotificationManager } from './components/NotificationManager';
-import { LandingContent } from './components/LandingContent';
 import { CookieConsent } from './components/CookieConsent';
+import { InteractiveStars } from './components/InteractiveStars';
+import { createPortal } from 'react-dom';
 import { ChevronDown } from 'lucide-react';
 
 export function App() {
@@ -79,6 +81,9 @@ export function App() {
     saveImmediate,
     notifyDelete,
   } = useAutoSaveSync();
+
+  // Zen Mode Idle Tracker (Auto-hide UI after 3.5s of inactivity, disable if menus are open)
+  const isIdle = useIdle(3500, isStickersOpen);
 
   // Filter notes based on search query & color profile
   const filteredNotes = rawNotes.filter((note) => {
@@ -368,6 +373,7 @@ export function App() {
           onToggleAlarm={handleToggleAlarm}
           isStickersOpen={isStickersOpen}
           onToggleStickers={() => setIsStickersOpen((prev) => !prev)}
+          isIdleHidden={isIdle}
         />
 
         {/* Buttons & Badges Selection Drawer */}
@@ -400,6 +406,7 @@ export function App() {
           onDeleteSticker={handleDeleteSticker}
           onBringStickerToFront={handleBringStickerToFront}
           onSendStickerToBack={handleSendStickerToBack}
+          isIdleHidden={isIdle}
         />
 
         {/* Interactive MiniMap */}
@@ -410,6 +417,7 @@ export function App() {
           onResetView={resetZoom}
           onZoomIn={zoomIn}
           onZoomOut={zoomOut}
+          isIdleHidden={isIdle}
         />
 
         {/* Local Alarm Service Loop */}
@@ -443,15 +451,18 @@ export function App() {
             const seoElement = document.getElementById('seo-content');
             if (seoElement) seoElement.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="absolute bottom-4 sm:bottom-5 left-1/2 -translate-x-1/2 z-40 flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-1.5 sm:py-2.5 bg-slate-900/20 sm:bg-slate-900/80 hover:bg-slate-800 border border-slate-700/20 sm:border-slate-700/80 text-slate-500 sm:text-slate-300 hover:text-slate-100 rounded-full backdrop-blur-[2px] sm:backdrop-blur-md shadow-sm sm:shadow-lg sm:shadow-black/50 transition-all hover:scale-105 active:scale-95 text-[10px] sm:text-xs font-bold tracking-wide"
+          className={`absolute bottom-4 sm:bottom-5 left-1/2 -translate-x-1/2 z-40 flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-1.5 sm:py-2.5 bg-slate-900/20 sm:bg-slate-900/80 hover:bg-slate-800 border border-slate-700/20 sm:border-slate-700/80 text-slate-500 sm:text-slate-300 hover:text-slate-100 rounded-full backdrop-blur-[2px] sm:backdrop-blur-md shadow-sm sm:shadow-lg sm:shadow-black/50 transition-all duration-700 hover:scale-105 active:scale-95 text-[10px] sm:text-xs font-bold tracking-wide ${isIdle ? 'opacity-0 translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'}`}
         >
           <span className="hidden sm:inline">Scroll for Info</span>
           <span className="inline sm:hidden">Info</span> <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-bounce" />
         </button>
       </main>
 
-      {/* SEO Landing Page Content */}
-      <LandingContent />
+      {/* Render InteractiveStars Background into the static index.html layout */}
+      {document.getElementById('stars-root') && createPortal(
+        <InteractiveStars />,
+        document.getElementById('stars-root')!
+      )}
 
       {/* Global First Time Visitor Banner */}
       <CookieConsent />

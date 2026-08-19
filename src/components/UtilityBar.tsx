@@ -44,6 +44,7 @@ interface UtilityBarProps {
     onToggleAlarm: () => void;
     isStickersOpen: boolean;
     onToggleStickers: () => void;
+    isIdleHidden?: boolean;
 }
 
 export const UtilityBar: React.FC<UtilityBarProps> = ({
@@ -64,6 +65,7 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
     onToggleAlarm,
     isStickersOpen,
     onToggleStickers,
+    isIdleHidden = false,
 }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const filterDropdownRef = useRef<HTMLDivElement>(null);
@@ -327,6 +329,7 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
                 lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[95vw] lg:bg-slate-900/85 lg:backdrop-blur-md lg:rounded-2xl lg:border lg:border-slate-700/80 lg:shadow-glass lg:w-max lg:h-12
                 top-0 bottom-0 left-0 w-72 bg-slate-900 border-r border-slate-700/80 shadow-2xl overflow-y-auto lg:overflow-visible no-scrollbar
                 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-[-50%]'}
+                ${isIdleHidden && !isMobileMenuOpen ? 'lg:opacity-0 lg:-translate-y-4 lg:pointer-events-none' : 'lg:opacity-100 lg:translate-y-0'}
             `}>
                 {/* Close Button for Drawer (Mobile Only) */}
                 <div className="lg:hidden flex items-center justify-between p-4 border-b border-slate-700/80 mb-2 shrink-0">

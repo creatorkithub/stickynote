@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { InteractiveStars } from './InteractiveStars';
 import { Shield, FileText, Mail } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -9,6 +9,16 @@ interface PageLayoutProps {
 
 export const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
     const location = useLocation();
+
+    useEffect(() => {
+        const seoElement = document.getElementById('seo-content');
+        if (seoElement) {
+            seoElement.style.display = 'none';
+            return () => {
+                seoElement.style.display = 'flex';
+            };
+        }
+    }, []);
 
     return (
         <section className="w-full bg-slate-950 flex flex-col relative min-h-screen font-sans overflow-hidden">

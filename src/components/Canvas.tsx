@@ -27,6 +27,7 @@ interface CanvasProps {
     onDeleteSticker: (id: number) => void;
     onBringStickerToFront: (id: number) => void;
     onSendStickerToBack: (id: number) => void;
+    isIdleHidden?: boolean;
 }
 
 export const Canvas: React.FC<CanvasProps> = ({
@@ -51,6 +52,7 @@ export const Canvas: React.FC<CanvasProps> = ({
     onDeleteSticker,
     onBringStickerToFront,
     onSendStickerToBack,
+    isIdleHidden = false,
 }) => {
     const canvasRef = useRef<HTMLDivElement>(null);
     const [showShortcuts, setShowShortcuts] = React.useState(false);
@@ -344,7 +346,7 @@ export const Canvas: React.FC<CanvasProps> = ({
                 ref={helpButtonRef}
                 onClick={() => setShowShortcuts(!showShortcuts)}
                 title="Canvas Controls & Shortcuts"
-                className="absolute bottom-4 left-4 z-40 p-1.5 sm:p-2.5 bg-slate-900/30 sm:bg-slate-900/90 text-slate-500 sm:text-slate-300 hover:text-amber-400 hover:bg-slate-900/90 rounded-2xl border border-slate-700/30 sm:border-slate-700/80 shadow-sm sm:shadow-lg backdrop-blur-sm sm:backdrop-blur-md transition-colors cursor-pointer active:scale-95"
+                className={`absolute bottom-4 left-4 z-40 p-1.5 sm:p-2.5 bg-slate-900/30 sm:bg-slate-900/90 text-slate-500 sm:text-slate-300 hover:text-amber-400 hover:bg-slate-900/90 rounded-2xl border border-slate-700/30 sm:border-slate-700/80 shadow-sm sm:shadow-lg backdrop-blur-sm sm:backdrop-blur-md transition-all duration-700 cursor-pointer active:scale-95 ${isIdleHidden ? 'opacity-0 translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'}`}
             >
                 <HelpCircle className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>

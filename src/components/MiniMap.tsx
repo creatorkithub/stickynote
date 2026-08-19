@@ -10,9 +10,10 @@ interface MiniMapProps {
     onResetView: () => void;
     onZoomIn?: () => void;
     onZoomOut?: () => void;
+    isIdleHidden?: boolean;
 }
 
-export const MiniMap: React.FC<MiniMapProps> = ({ notes, transform, onNavigate, onResetView, onZoomIn, onZoomOut }) => {
+export const MiniMap: React.FC<MiniMapProps> = ({ notes, transform, onNavigate, onResetView, onZoomIn, onZoomOut, isIdleHidden = false }) => {
     const isDraggingRef = React.useRef(false);
     const mapRef = React.useRef<HTMLDivElement>(null);
 
@@ -76,7 +77,7 @@ export const MiniMap: React.FC<MiniMapProps> = ({ notes, transform, onNavigate, 
     };
 
     return (
-        <div className="absolute bottom-4 right-4 z-40 flex flex-col items-end gap-1.5 text-slate-100 hidden sm:flex">
+        <div className={`absolute bottom-4 right-4 z-40 flex-col items-end gap-1.5 text-slate-100 hidden sm:flex transition-all duration-700 ease-out ${isIdleHidden ? 'opacity-0 translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'}`}>
             {/* Bottom Right Floating Zoom Pill Bar */}
             <div className="flex items-center gap-1 bg-slate-900/90 backdrop-blur-md px-2 py-1 rounded-xl border border-slate-700/80 shadow-2xl">
                 {onZoomOut && (
