@@ -3,7 +3,7 @@
 
 <head>
   <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
+  <script defer>(function (w, d, s, l, i) {
       w[l] = w[l] || []; w[l].push({
         'gtm.start':
           new Date().getTime(), event: 'gtm.js'
@@ -35,7 +35,8 @@
   </script>
 
   <!-- Google AdSense Auto Ads (Replace client ID with your actual pub ID) -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000"
+  <script defer async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000"
     crossorigin="anonymous"></script>
 
   <meta charset="UTF-8" />
@@ -44,6 +45,14 @@
   <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Screen Stickynote - Infinite Virtual Canvas & 3D Stickynotes</title>
+
+  <!-- Resource Hints & Font Preconnects -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Kalam:wght@400;700&display=swap" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Kalam:wght@400;700&display=swap" />
 
   <!-- SEO & Metadata -->
   <meta name="description"
