@@ -25,9 +25,11 @@ export const PrivacyPolicyPage: React.FC = () => {
                     </div>
 
                     <div className="bg-slate-900/50 p-6 md:p-8 rounded-2xl border border-slate-800">
-                        <h3 className="text-xl font-bold text-slate-200 mb-4">2. Website Analytics & Tracking Technology</h3>
+                        <h3 className="text-xl font-bold text-slate-200 mb-4">2. Website Analytics & Advertising Technology</h3>
                         <ul className="list-disc pl-5 space-y-4 mt-2">
-                            <li><strong className="text-slate-200">No Third-Party Cookies:</strong> This web application runs free of invasive tracking scripts, marketing pixels, and ad-targeting networks.</li>
+                            <li><strong className="text-slate-200">Third-Party Advertising:</strong> Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this website or other websites.</li>
+                            <li><strong className="text-slate-200">Google Ads:</strong> Google's use of advertising cookies enables it and its partners to serve ads based on your visit to this site and/or other sites on the Internet.</li>
+                            <li><strong className="text-slate-200">Opt-Out:</strong> Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline">Ads Settings</a> or <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline">www.aboutads.info</a>.</li>
                             <li><strong className="text-slate-200">Server Logs:</strong> Like most online services, our hosting provider may collect basic, anonymous server-side connection headers (such as masked IP address and browser user-agent) purely for security debugging, firewalls, and application load-distribution. This traffic data is not cross-referenced to any personal identity.</li>
                         </ul>
                     </div>
@@ -44,7 +46,7 @@ export const PrivacyPolicyPage: React.FC = () => {
 
                     <div className="bg-slate-900/50 p-6 md:p-8 rounded-2xl border border-slate-800">
                         <h3 className="text-xl font-bold text-slate-200 mb-4">4. Direct Support and Inquiries</h3>
-                        <p>If you have any operational questions regarding our technical architecture or data-handling methods, please submit an issue on our official repository or contact us via email at: <a href="mailto:support@screenstickynote.com" className="text-amber-400 hover:underline">support@screenstickynote.com</a>.</p>
+                        <p>If you have any operational questions regarding our technical architecture or data-handling methods, please submit an issue on our official repository or contact us via email at: <a href="mailto:screenstickynote@gmail.com" className="text-amber-400 hover:underline">screenstickynote@gmail.com</a>.</p>
                     </div>
                 </div>
             </div>

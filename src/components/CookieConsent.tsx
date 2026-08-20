@@ -35,7 +35,7 @@ export const CookieConsent: React.FC = () => {
                         <div>
                             <h4 className="text-slate-100 font-bold text-sm mb-1">Your Privacy & Terms</h4>
                             <p className="text-slate-400 text-xs leading-relaxed">
-                                We use strictly necessary local storage (IndexedDB) to save your notes. By continuing, you agree to our <a href="#seo-content" className="text-amber-400 hover:underline">Terms of Service</a> & <a href="#seo-content" className="text-amber-400 hover:underline">Privacy Policy</a>.
+                                We use cookies and local storage to save your notes, personalize content and ads, and analyze our traffic. We also share information about your use of our site with our advertising and analytics partners. By continuing, you agree to our <a href="#seo-content" className="text-amber-400 hover:underline">Terms of Service</a> & <a href="#seo-content" className="text-amber-400 hover:underline">Privacy Policy</a>.
                             </p>
                         </div>
                     </div>

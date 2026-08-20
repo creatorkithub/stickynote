@@ -13,6 +13,7 @@ import { MiniMap } from './components/MiniMap';
 import { StickersDrawer } from './components/StickersDrawer';
 import { NotificationManager } from './components/NotificationManager';
 import { CookieConsent } from './components/CookieConsent';
+import { BackToTopButton } from './components/BackToTopButton';
 import { InteractiveStars } from './components/InteractiveStars';
 import { createPortal } from 'react-dom';
 import { ChevronDown } from 'lucide-react';
@@ -466,6 +467,9 @@ export function App() {
 
       {/* Global First Time Visitor Banner */}
       <CookieConsent />
+
+      {/* Floating scroll-to-top button */}
+      <BackToTopButton />
     </div>
   );
 }
