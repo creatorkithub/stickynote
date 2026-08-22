@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import { App } from './App';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { WindowsAppPrivacyPolicyPage } from './pages/WindowsAppPrivacyPolicyPage';
 import { TermsOfServicePage } from './pages/TermsOfServicePage';
 import { ContactPage } from './pages/ContactPage';
 import { ScrollToTop } from './components/ScrollToTop';
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
+        <Route path="/windows-app-privacy" element={<WindowsAppPrivacyPolicyPage />} />
         <Route path="/terms" element={<TermsOfServicePage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>

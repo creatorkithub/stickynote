@@ -32,7 +32,10 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
                 <div className="max-w-6xl mx-auto px-6 w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
                     <div className="flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-4 md:gap-8 text-sm font-bold text-slate-500 w-full md:w-auto">
                         <Link to="/privacy" className={`hover:text-amber-400 flex items-center gap-2 transition-colors border-b-2 ${location.pathname === '/privacy' ? 'text-amber-500 border-amber-500' : 'border-transparent hover:border-amber-400'} pb-1`}>
-                            <Shield className="w-4 h-4 mr-1.5" /> Privacy Policy
+                            <Shield className="w-4 h-4 mr-1.5" /> Web Privacy
+                        </Link>
+                        <Link to="/windows-app-privacy" rel="nofollow" className={`hover:text-amber-400 flex items-center gap-2 transition-colors border-b-2 ${location.pathname === '/windows-app-privacy' ? 'text-amber-500 border-amber-500' : 'border-transparent hover:border-amber-400'} pb-1`}>
+                            <Shield className="w-4 h-4 mr-1.5" /> App Privacy
                         </Link>
                         <Link to="/terms" className={`hover:text-amber-400 flex items-center gap-2 transition-colors border-b-2 ${location.pathname === '/terms' ? 'text-amber-500 border-amber-500' : 'border-transparent hover:border-amber-400'} pb-1`}>
                             <FileText className="w-4 h-4 mr-1.5" /> Terms of Service
