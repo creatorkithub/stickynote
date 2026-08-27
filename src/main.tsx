@@ -7,6 +7,7 @@ import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { WindowsAppPrivacyPolicyPage } from './pages/WindowsAppPrivacyPolicyPage';
 import { TermsOfServicePage } from './pages/TermsOfServicePage';
 import { ContactPage } from './pages/ContactPage';
+import { DownloadPage } from './pages/DownloadPage';
 import { ScrollToTop } from './components/ScrollToTop';
 
 createRoot(document.getElementById('root')!).render(
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/windows-app-privacy" element={<WindowsAppPrivacyPolicyPage />} />
         <Route path="/terms" element={<TermsOfServicePage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/download" element={<DownloadPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

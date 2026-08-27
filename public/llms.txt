@@ -13,8 +13,9 @@ There are no servers, no accounts, no sync delays, and no telemetry tracking. Yo
 - **Reminders & Alarms**: Assign strictly timed scheduled reminders to individual sticky notes which passively trigger visual alerts.
 - **JSON Export / Import**: Seamlessly backup or restore the entire database manually.
 - **PWA Ready**: Natively installable as an offline-capable standalone Progressive Web Application.
+- **Native Windows Bundle**: Available as a natively compiled desktop executable featuring system tray capability.
 
-To access the app, visit [Screen Stickynote](https://screenstickynote.com/). You can also read our [Privacy Policy](https://screenstickynote.com/privacy) and [Terms of Service](https://screenstickynote.com/terms).
+To access the web app, visit [Screen Stickynote](https://screenstickynote.com/). To get the desktop version, visit the [Download Page](https://screenstickynote.com/download) and view our [Windows App Privacy Policy](https://screenstickynote.com/windows-app-privacy). You can also review our general website [Privacy Policy](https://screenstickynote.com/privacy) and [Terms of Service](https://screenstickynote.com/terms).
 
 ## Architecture
 - **Framework:** React 18, Vite, TypeScript
