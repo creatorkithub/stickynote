@@ -347,7 +347,7 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
                             <Sparkles className="w-4 h-4 text-slate-900" />
                         </div>
                         <div className="hidden sm:block">
-                            <h1 className="text-xs font-bold tracking-tight text-white leading-none">Screen Stickynote</h1>
+                            <span className="text-xs font-bold tracking-tight text-white leading-none block">Screen Stickynote</span>
                             <p className="text-[10px] text-amber-400 font-mono leading-none mt-1">screenstickynote.com</p>
                         </div>
                     </div>
