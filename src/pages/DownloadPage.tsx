@@ -59,31 +59,41 @@ export const DownloadPage: React.FC = () => {
                         Experience the ultimate productivity tool right on your Windows desktop. Discover our web-based <Link to="/" className="font-semibold text-slate-300 hover:text-amber-400 hover:underline transition-colors">infinite virtual canvas</Link> directly in your browser, or install the native Windows app. As governed by our <Link to="/windows-app-privacy" className="font-semibold text-slate-300 hover:text-amber-400 hover:underline transition-colors">Windows Privacy Policy</Link>, your thoughts remain 100% offline.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8">
+                    <div className="flex flex-col sm:flex-row items-center justify-center w-full max-w-sm sm:max-w-4xl mx-auto">
                         {/* Direct Download Button */}
-                        <a
-                            href="https://pub-8faf7ac3f9aa408e9e6bac3c218957da.r2.dev/ScreenStickyNote_Setup.exe"
-                            className="group relative inline-flex items-center justify-center gap-3 bg-amber-500 hover:bg-amber-400 text-slate-950 px-8 py-4 rounded-2xl font-bold text-base shadow-[0_0_20px_rgba(245,158,11,0.3)] hover:shadow-[0_0_30px_rgba(251,191,36,0.4)] transition-all duration-300 hover:scale-105 active:scale-95 w-full sm:w-auto"
-                        >
-                            <HardDrive className="w-5 h-5 stroke-[2.5]" />
-                            Download Setup (.exe)
-                        </a>
+                        <div className="flex-1 flex sm:justify-end justify-center w-full">
+                            <a
+                                href="https://pub-8faf7ac3f9aa408e9e6bac3c218957da.r2.dev/ScreenStickyNote_Setup.exe"
+                                className="group relative inline-flex items-center justify-center gap-3 bg-amber-500 hover:bg-amber-400 text-slate-950 px-6 sm:px-8 rounded-2xl font-bold text-[15px] sm:text-base shadow-[0_0_20px_rgba(245,158,11,0.3)] hover:shadow-[0_0_30px_rgba(251,191,36,0.4)] transition-all duration-300 hover:scale-[1.03] active:scale-95 w-full sm:w-auto h-[56px] shrink-0"
+                            >
+                                <HardDrive className="w-5 h-5 stroke-[2.5]" />
+                                Download Setup (.exe)
+                            </a>
+                        </div>
 
-                        <div className="h-10 w-px bg-slate-800 hidden sm:block"></div>
-                        <div className="sm:hidden text-slate-500 font-bold text-xs uppercase tracking-widest">OR</div>
+                        <div className="mx-6 sm:mx-10 h-10 w-px bg-slate-800 hidden sm:block shrink-0"></div>
+                        <div className="sm:hidden text-slate-500 font-bold text-xs uppercase tracking-widest flex items-center gap-4 w-full my-6">
+                            <span className="h-px bg-slate-800 flex-1"></span>
+                            OR
+                            <span className="h-px bg-slate-800 flex-1"></span>
+                        </div>
 
-                        {/* MS Store Badge */}
-                        <div className="hover:scale-105 transition-transform duration-300 active:scale-95 w-full sm:w-auto flex justify-center">
-                            {React.createElement('ms-store-badge', {
-                                productid: "xpdfg1xhtq83bm",
-                                cid: "website",
-                                productname: "Screen Stickynote",
-                                "window-mode": "direct",
-                                theme: "auto",
-                                size: "small",
-                                language: "en",
-                                animation: "on"
-                            })}
+                        {/* MS Store Badge (Scaled precisely to match the 56px height of the setup button) */}
+                        <div className="flex-1 flex sm:justify-start justify-center w-full sm:w-auto h-[56px] shrink-0">
+                            <div className="hover:scale-[1.03] active:scale-[0.97] transition-transform duration-300 flex justify-center sm:justify-start items-center w-full sm:w-auto h-full cursor-pointer">
+                                <div className="flex justify-center origin-center sm:origin-left" style={{ transform: 'scale(0.82)' }}>
+                                    {React.createElement('ms-store-badge', {
+                                        productid: "xpdfg1xhtq83bm",
+                                        cid: "website",
+                                        productname: "Screen Stickynote",
+                                        "window-mode": "direct",
+                                        theme: "auto",
+                                        size: "small",
+                                        language: "en",
+                                        animation: "on"
+                                    })}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
