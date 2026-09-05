@@ -736,6 +736,7 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
                             }
                             setIsMobileMenuOpen(false);
                         }} className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">About</a>
+                        <a href="/blog" className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">Blog</a>
                         <a href="/privacy" className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">Privacy</a>
                         <a href="/terms" className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">Terms</a>
                         <a href="/contact" className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">Contact</a>
@@ -757,6 +758,7 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
                                         document.getElementById('seo-content')?.scrollIntoView({ behavior: 'smooth' });
                                     }
                                 }} className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">About App</a>
+                                <a href="/blog" className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">Visit Blog</a>
                                 <a href="/privacy" className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">Privacy Policy</a>
                                 <a href="/terms" className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">Terms of Service</a>
                                 <a href="/contact" className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">Contact Us</a>
