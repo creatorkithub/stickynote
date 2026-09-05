@@ -13,11 +13,32 @@ import { ScrollToTop } from './components/ScrollToTop';
 import { BlogIndex } from './pages/BlogIndex';
 import { BlogPost } from './pages/BlogPost';
 
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+
+function SEOVisibilityManager() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const seoElement = document.getElementById('seo-content');
+    if (seoElement) {
+      if (pathname === '/') {
+        seoElement.style.display = 'flex';
+      } else {
+        seoElement.style.display = 'none';
+      }
+    }
+  }, [pathname]);
+
+  return null;
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
+        <SEOVisibilityManager />
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
