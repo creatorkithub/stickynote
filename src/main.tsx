@@ -12,6 +12,8 @@ import { DownloadPage } from './pages/DownloadPage';
 import { ScrollToTop } from './components/ScrollToTop';
 import { BlogIndex } from './pages/BlogIndex';
 import { BlogPost } from './pages/BlogPost';
+import { InstallPage } from './pages/InstallPage';
+import { UninstallPage } from './pages/UninstallPage';
 
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -48,6 +50,8 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/download" element={<DownloadPage />} />
           <Route path="/blog" element={<BlogIndex />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/install" element={<InstallPage />} />
+          <Route path="/uninstall" element={<UninstallPage />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
