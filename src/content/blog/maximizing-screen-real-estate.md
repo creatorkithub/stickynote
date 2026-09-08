@@ -12,7 +12,7 @@ Now, look at the typical digital workspace. What do you see? Rigid columns, clau
 
 The modern computer monitor is wider, sharper, and denser than ever before. We have curved ultrawide monitors, 4K retina displays, and vast multi-screen setups. Yet, the software we use rarely takes advantage of this expansiveness. It traps our ideas inside small, padded boxes. 
 
-At Screen Stickynote, we firmly believe that your creative process should dictate your software structure—not the other way around. By breaking away from traditional 2D interfaces and embracing a boundless 3D spatial workspace, you unlock an entirely new paradigm of productivity and cognitive offloading. Welcome to the era of absolute screen liberation.
+At Screen Stickynote, we firmly believe that your creative process should dictate your software structure-not the other way around. By breaking away from traditional 2D interfaces and embracing a boundless 3D spatial workspace, you unlock an entirely new paradigm of productivity and cognitive offloading. Welcome to the era of absolute screen liberation.
 
 ## The Cognitive Trap of Vertical Scrolling
 
@@ -29,7 +29,7 @@ Open up a typical task management application on a standard 16:9 monitor. Notice
 
 ## Unleashing the Z-Axis
 
-How do we break out of this paradigm? By moving beyond the X and Y axes and exploring the Z-axis—depth. A three-dimensional workspace doesn't mean wearing a virtual reality headset or rendering complex 3D models. It means providing spatial relation between objects on a flat screen.
+How do we break out of this paradigm? By moving beyond the X and Y axes and exploring the Z-axis-depth. A three-dimensional workspace doesn't mean wearing a virtual reality headset or rendering complex 3D models. It means providing spatial relation between objects on a flat screen.
 
 When you use a platform like Screen Stickynote, your browser window transforms into an infinite, panning camera. 
 
@@ -37,7 +37,7 @@ When you use a platform like Screen Stickynote, your browser window transforms i
 
 Humans evolved as hunters and gatherers in physical environments, not as data processors in digital spreadsheets. Our brains are incredibly adept at remembering *where* things are. This is known as spatial memory. You might not remember the exact serial number on your blender, but you know exactly which kitchen cabinet it sits in. 
 
-When you place a bright yellow sticky note in the top-right corner of your virtual canvas, your brain registers its physical location. When you need that information again an hour later, you don't use a search bar or scroll through a list—you instinctually pan right and zoom in. By tapping into spatial memory, you drastically reduce the cognitive load required to manage complex information.
+When you place a bright yellow sticky note in the top-right corner of your virtual canvas, your brain registers its physical location. When you need that information again an hour later, you don't use a search bar or scroll through a list-you instinctually pan right and zoom in. By tapping into spatial memory, you drastically reduce the cognitive load required to manage complex information.
 
 ## Strategies for Spatial Organization
 
