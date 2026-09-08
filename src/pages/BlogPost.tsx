@@ -6,6 +6,8 @@ import remarkGfm from 'remark-gfm';
 import { useSEO } from '../hooks/useSEO';
 import type { BlogPostData } from '../types/blog';
 import { ArrowLeft, ArrowUpRight, ArrowUp } from 'lucide-react';
+import { BlogFooter } from '../components/blog/BlogFooter';
+import { SiteFooter } from '../components/SiteFooter';
 
 export function BlogPost() {
     const { slug } = useParams<{ slug: string }>();
@@ -75,7 +77,7 @@ export function BlogPost() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-950 font-sans text-slate-100 pb-20">
+        <div className="min-h-screen bg-slate-950 font-sans text-slate-100 flex flex-col">
             <header className="py-6 px-6 sm:px-12 border-b border-slate-900/50 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
                 <div className="max-w-4xl mx-auto flex items-center justify-between">
                     <Link to="/blog" className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group">
@@ -88,7 +90,7 @@ export function BlogPost() {
                 </div>
             </header>
 
-            <main className="w-full max-w-6xl mx-auto px-6 pt-12 sm:pt-20">
+            <main className="flex-1 w-full max-w-6xl mx-auto px-6 py-12 sm:py-20">
                 <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
                     {/* Primary Content Column */}
                     <article className="flex-1 max-w-3xl">
@@ -128,6 +130,8 @@ export function BlogPost() {
                                 {post.content}
                             </ReactMarkdown>
                         </div>
+
+                        <BlogFooter tags={post.tags || []} currentSlug={post.slug} />
                     </article>
 
                     {/* Sidebar Column */}
@@ -172,6 +176,7 @@ export function BlogPost() {
             >
                 <ArrowUp className="w-6 h-6 stroke-[3]" />
             </button>
+            <SiteFooter />
         </div>
     );
 }

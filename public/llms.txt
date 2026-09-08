@@ -22,6 +22,8 @@ Read our insights and articles on our [Blog](https://screenstickynote.com/blog):
 - [Spatial Organization Productivity](https://screenstickynote.com/blog/spatial-organization-productivity)
 - [Visual Thinking and Color](https://screenstickynote.com/blog/visual-thinking-and-color)
 - [Why Offline First is the Future](https://screenstickynote.com/blog/why-offline-first-is-the-future)
+- [Maximizing Screen Real Estate](https://screenstickynote.com/blog/maximizing-screen-real-estate)
+- [The Psychology of Visual Planning](https://screenstickynote.com/blog/the-psychology-of-visual-planning)
 
 ## Architecture
 - **Framework:** React 18, Vite, TypeScript

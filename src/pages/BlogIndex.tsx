@@ -5,6 +5,7 @@ import { BlogCard } from '../components/blog/BlogCard';
 import type { BlogPostData } from '../types/blog';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { SiteFooter } from '../components/SiteFooter';
 
 export function BlogIndex() {
     const [posts, setPosts] = useState<BlogPostData[]>([]);
@@ -77,6 +78,7 @@ export function BlogIndex() {
                     </div>
                 )}
             </main>
+            <SiteFooter />
         </div>
     );
 }
