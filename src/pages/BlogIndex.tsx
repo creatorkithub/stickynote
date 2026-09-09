@@ -59,11 +59,26 @@ export function BlogIndex() {
             </header>
 
             <main className="flex-1 w-full max-w-7xl mx-auto px-6 sm:px-12 py-16">
-                <div className="mb-16">
-                    <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Latest Insights</h2>
-                    <p className="text-lg text-slate-400 max-w-2xl">
-                        Discover product updates, design philosophy, and deep dives into features helping you stay organized.
-                    </p>
+                <div className="mb-20 relative">
+                    {/* Background glow effects */}
+                    <div className="absolute inset-0 bg-sky-500/10 blur-[100px] rounded-full w-[300px] h-[300px] top-1/2 left-0 -translate-y-1/2 pointer-events-none" />
+                    <div className="absolute inset-0 bg-indigo-500/10 blur-[120px] rounded-full w-[400px] h-[400px] top-0 left-[30%] pointer-events-none" />
+
+                    <div className="relative z-10">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-sky-500/10 border border-sky-500/20 rounded-full text-sky-400 text-sm font-semibold tracking-wide mb-6">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                            </span>
+                            Screen Stickynote Blog
+                        </div>
+                        <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-200 to-slate-500">
+                            Ideas, insights, <br className="hidden sm:block" /> and deep dives.
+                        </h2>
+                        <p className="text-xl md:text-2xl text-slate-400 max-w-3xl font-medium leading-relaxed">
+                            Discover product updates, design philosophy, and cognitive strategies to help you stay organized in a chaotic digital world.
+                        </p>
+                    </div>
                 </div>
 
                 {posts.length === 0 ? (

@@ -15,10 +15,15 @@ export function BlogPost() {
     const [post, setPost] = useState<BlogPostData | null>(null);
     const [error, setError] = useState(false);
     const [showScrollTop, setShowScrollTop] = useState(false);
+    const [scrollProgress, setScrollProgress] = useState(0);
 
     useEffect(() => {
         const handleScroll = () => {
             setShowScrollTop(window.scrollY > 400);
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            setScrollProgress(scrolled);
         };
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
@@ -77,7 +82,14 @@ export function BlogPost() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-950 font-sans text-slate-100 flex flex-col">
+        <div className="min-h-screen bg-slate-950 font-sans text-slate-100 flex flex-col relative">
+            {/* Reading Progress Bar */}
+            <div className="fixed top-0 left-0 w-full h-1 bg-slate-900/50 z-[60]">
+                <div
+                    className="h-full bg-gradient-to-r from-sky-400 to-indigo-500 transition-all duration-150 ease-out"
+                    style={{ width: `${scrollProgress}%` }}
+                />
+            </div>
             <header className="py-6 px-6 sm:px-12 border-b border-slate-900/50 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
                 <div className="max-w-4xl mx-auto flex items-center justify-between">
                     <Link to="/blog" className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group">
@@ -125,7 +137,7 @@ export function BlogPost() {
                         )}
 
                         {/* Markdown Content rendered via react-markdown + Tailwind @tailwindcss/typography plugins */}
-                        <div className="prose prose-invert prose-lg prose-slate hover:prose-a:text-sky-400 prose-a:transition-colors prose-a:text-sky-500 max-w-none">
+                        <div className="prose prose-invert prose-lg prose-slate hover:prose-a:text-sky-400 prose-a:transition-colors prose-a:text-sky-500 max-w-none first-letter:text-5xl first-letter:font-black first-letter:text-sky-400 first-letter:mr-3 first-letter:float-left first-letter:-mt-1 md:prose-p:leading-relaxed prose-headings:font-bold prose-h1:text-sky-50 prose-h2:text-sky-100 prose-img:rounded-2xl prose-img:shadow-2xl">
                             <ReactMarkdown remarkPlugins={[remarkGfm]}>
                                 {post.content}
                             </ReactMarkdown>

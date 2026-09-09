@@ -24,6 +24,8 @@ Read our insights and articles on our [Blog](https://screenstickynote.com/blog):
 - [Why Offline First is the Future](https://screenstickynote.com/blog/why-offline-first-is-the-future)
 - [Maximizing Screen Real Estate](https://screenstickynote.com/blog/maximizing-screen-real-estate)
 - [The Psychology of Visual Planning](https://screenstickynote.com/blog/the-psychology-of-visual-planning)
+- [The Silent Cost of Context Switching: Why Unified Workspaces Win](https://screenstickynote.com/blog/the-silent-cost-of-context-switching)
+- [Digital Minimalism in 2026: Escaping the Clutter of Infinite Tabs](https://screenstickynote.com/blog/digital-minimalism-escaping-tab-clutter)
 
 ## Architecture
 - **Framework:** React 18, Vite, TypeScript
