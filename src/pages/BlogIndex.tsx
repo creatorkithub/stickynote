@@ -9,6 +9,8 @@ import { SiteFooter } from '../components/SiteFooter';
 
 export function BlogIndex() {
     const [posts, setPosts] = useState<BlogPostData[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const postsPerPage = 10;
 
     useSEO({
         title: 'Development Blog | Screen Stickynote',
@@ -43,6 +45,11 @@ export function BlogIndex() {
         loadedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         setPosts(loadedPosts);
     }, []);
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+    const totalPages = Math.ceil(posts.length / postsPerPage);
 
     return (
         <div className="min-h-screen bg-slate-950 font-sans text-slate-100 flex flex-col">
@@ -86,10 +93,39 @@ export function BlogIndex() {
                         Loading posts...
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {posts.map((post) => (
-                            <BlogCard key={post.slug} post={post} />
-                        ))}
+                    <div className="flex flex-col gap-12">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {currentPosts.map((post) => (
+                                <BlogCard key={post.slug} post={post} />
+                            ))}
+                        </div>
+                        {totalPages > 1 && (
+                            <div className="flex justify-center items-center gap-4">
+                                <button
+                                    onClick={() => {
+                                        setCurrentPage(p => Math.max(1, p - 1));
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    }}
+                                    disabled={currentPage === 1}
+                                    className="px-6 py-2 bg-slate-900 border border-slate-700 text-slate-300 rounded-full hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                >
+                                    Previous
+                                </button>
+                                <span className="text-slate-400 font-medium">
+                                    Page {currentPage} of {totalPages}
+                                </span>
+                                <button
+                                    onClick={() => {
+                                        setCurrentPage(p => Math.min(totalPages, p + 1));
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    }}
+                                    disabled={currentPage === totalPages}
+                                    className="px-6 py-2 bg-slate-900 border border-slate-700 text-slate-300 rounded-full hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        )}
                     </div>
                 )}
             </main>

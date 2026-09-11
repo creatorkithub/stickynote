@@ -26,6 +26,10 @@ Read our insights and articles on our [Blog](https://screenstickynote.com/blog):
 - [The Psychology of Visual Planning](https://screenstickynote.com/blog/the-psychology-of-visual-planning)
 - [The Silent Cost of Context Switching: Why Unified Workspaces Win](https://screenstickynote.com/blog/the-silent-cost-of-context-switching)
 - [Digital Minimalism in 2026: Escaping the Clutter of Infinite Tabs](https://screenstickynote.com/blog/digital-minimalism-escaping-tab-clutter)
+- [The Ultimate Guide to Local-First Applications](https://screenstickynote.com/blog/the-ultimate-guide-to-local-first-applications)
+- [Why Infinite Canvas Trumps Traditional Folders](https://screenstickynote.com/blog/why-infinite-canvas-trumps-folders)
+- [Security First: The Benefits of Client-Side Data Storage](https://screenstickynote.com/blog/security-first-client-side-storage)
+- [Designing for Focus: How Dark Mode and Minimalism Boost Productivity](https://screenstickynote.com/blog/designing-for-focus-minimalism)
 
 ## Architecture
 - **Framework:** React 18, Vite, TypeScript
