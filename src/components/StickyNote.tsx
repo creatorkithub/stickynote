@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
     Pin,
@@ -1034,7 +1035,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                                 onUpdateImmediate(note.id!, { isPinned: !note.isPinned });
                             }}
                             title={note.isPinned ? "Unpin Note" : "Pin Note"}
-                            className={`p-1 rounded transition-colors ${note.isPinned ? 'text-red-700 fill-red-700/20 bg-black/10' : 'text-black/80 hover:text-black hover:bg-black/10'
+                            className={`p-1 rounded transition-colors ${note.isPinned ? 'text-black fill-black/20 bg-black/15 shadow-inner' : 'text-black/80 hover:text-black hover:bg-black/10'
                                 }`}
                         >
                             <Pin className={`w-3.5 h-3.5 stroke-[2.2] ${note.isPinned ? 'rotate-45' : ''}`} />

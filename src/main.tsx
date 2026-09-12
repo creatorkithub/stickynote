@@ -18,7 +18,7 @@ import { UninstallPage } from './pages/UninstallPage';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 
-function SEOVisibilityManager() {
+export function SEOVisibilityManager() {
   const { pathname } = useLocation();
 
   useEffect(() => {

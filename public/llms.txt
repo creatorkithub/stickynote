@@ -30,6 +30,8 @@ Read our insights and articles on our [Blog](https://screenstickynote.com/blog):
 - [Why Infinite Canvas Trumps Traditional Folders](https://screenstickynote.com/blog/why-infinite-canvas-trumps-folders)
 - [Security First: The Benefits of Client-Side Data Storage](https://screenstickynote.com/blog/security-first-client-side-storage)
 - [Designing for Focus: How Dark Mode and Minimalism Boost Productivity](https://screenstickynote.com/blog/designing-for-focus-minimalism)
+- [Mastering Visual Organization with Screen Stickynote](https://screenstickynote.com/blog/mastering-visual-organization-with-screen-stickynote)
+- [Overcoming Digital Clutter with Spatial Thinking](https://screenstickynote.com/blog/overcoming-digital-clutter-with-spatial-thinking)
 
 ## Architecture
 - **Framework:** React 18, Vite, TypeScript
