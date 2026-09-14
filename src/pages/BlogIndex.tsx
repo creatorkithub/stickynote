@@ -10,7 +10,7 @@ import { SiteFooter } from '../components/SiteFooter';
 export function BlogIndex() {
     const [posts, setPosts] = useState<BlogPostData[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const postsPerPage = 10;
+    const postsPerPage = 12;
 
     useSEO({
         title: 'Development Blog | Screen Stickynote',

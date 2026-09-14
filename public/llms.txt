@@ -32,7 +32,8 @@ Read our insights and articles on our [Blog](https://screenstickynote.com/blog):
 - [Designing for Focus: How Dark Mode and Minimalism Boost Productivity](https://screenstickynote.com/blog/designing-for-focus-minimalism)
 - [Mastering Visual Organization with Screen Stickynote](https://screenstickynote.com/blog/mastering-visual-organization-with-screen-stickynote)
 - [Overcoming Digital Clutter with Spatial Thinking](https://screenstickynote.com/blog/overcoming-digital-clutter-with-spatial-thinking)
-
+- [The Ultimate Workflow: Combining Sticky Notes with Time Blocking](https://screenstickynote.com/blog/ultimate-workflow-stickynotes-time-blocking)
+- [Why Privacy Matters for Your Ideas: Local-First Brainstorming](https://screenstickynote.com/blog/privacy-matters-local-first-brainstorming)
 ## Architecture
 - **Framework:** React 18, Vite, TypeScript
 - **Styling:** TailwindCSS 
