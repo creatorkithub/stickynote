@@ -63,6 +63,7 @@ export function BlogPost() {
         title: post ? `${post.title} | Screen Stickynote Blog` : 'Loading... | Screen Stickynote Blog',
         description: post?.excerpt,
         imageUrl: post?.thumbnail,
+        canonicalUrl: slug ? `https://screenstickynote.com/blog/${slug}/` : undefined,
     });
 
     if (error) {

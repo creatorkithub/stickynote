@@ -40,8 +40,8 @@ files.forEach(file => {
 
     // Replace canonical tag
     specificHtml = specificHtml.replace(
-        /<link\s+rel="canonical"\s+id="canonical-link"\s+href=".*?"\s*\/>/gi,
-        `<link rel="canonical" id="canonical-link" href="${url}" />`
+        /<link\s+rel="canonical"\s+id="canonical-link"\s+href=".*?"\s*data-rh="true"\s*\/>/gi,
+        `<link rel="canonical" id="canonical-link" href="${url}" data-rh="true" />`
     );
 
     // Replace OG tags
@@ -76,8 +76,8 @@ coreRoutes.forEach(route => {
 
     // Replace canonical tag
     specificHtml = specificHtml.replace(
-        /<link\s+rel="canonical"\s+id="canonical-link"\s+href=".*?"\s*\/>/gi,
-        `<link rel="canonical" id="canonical-link" href="${url}" />`
+        /<link\s+rel="canonical"\s+id="canonical-link"\s+href=".*?"\s*data-rh="true"\s*\/>/gi,
+        `<link rel="canonical" id="canonical-link" href="${url}" data-rh="true" />`
     );
 
     // Replace OG URL and Twitter URL to match the specific route
