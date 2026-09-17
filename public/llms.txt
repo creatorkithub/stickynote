@@ -36,6 +36,8 @@ Read our insights and articles on our [Blog](https://screenstickynote.com/blog):
 - [Why Privacy Matters for Your Ideas: Local-First Brainstorming](https://screenstickynote.com/blog/privacy-matters-local-first-brainstorming)
 - [The Cognitive Science Behind Spatial Memory and Sticky Notes](https://screenstickynote.com/blog/the-cognitive-science-of-spatial-memory)
 - [Data Sovereignty: Why Owning Your Notes is the Ultimate Productivity Hack](https://screenstickynote.com/blog/data-sovereignty-owning-your-notes)
+- [Skeuomorphic Design in a Flat Digital World: The Case for Tactile Workspaces](https://screenstickynote.com/blog/skeuomorphic-productivity-metaphors)
+- [Escaping the Endless Scroll: Why Spatial Mapping is the Future of Productivity](https://screenstickynote.com/blog/escaping-endless-scroll-with-spatial-mapping)
 ## Architecture
 - **Framework:** React 18, Vite, TypeScript
 - **Styling:** TailwindCSS 

@@ -29,7 +29,7 @@ files.forEach(file => {
     // Construct dynamic tags
     const title = `${parsed.data.title} | Screen Stickynote Blog`;
     const description = parsed.data.excerpt ? parsed.data.excerpt.replace(/"/g, '&quot;') : "Read the latest updates and deep-dives on the Screen Stickynote application.";
-    const url = `https://screenstickynote.com/blog/${slug}`;
+    const url = `https://screenstickynote.com/blog/${slug}/`;
     const imageUrl = parsed.data.thumbnail || "https://screenstickynote.com/og-image.jpg";
 
     let specificHtml = baseHtml;
@@ -38,10 +38,10 @@ files.forEach(file => {
     specificHtml = specificHtml.replace(/<title>.*?<\/title>/gi, `<title>${title}</title>`);
     specificHtml = specificHtml.replace(/<meta\s+name="description"\s+content=".*?"\s*\/>/gi, `<meta name="description" content="${description}" />`);
 
-    // Find JS-injected canonical tag and make it static for the specific route 
+    // Replace canonical tag
     specificHtml = specificHtml.replace(
-        /document\.write\('<link rel="canonical" href="' \+ window\.location\.origin \+ window\.location\.pathname \+ '" \/>'\);/g,
-        `document.write('<link rel="canonical" href="${url}" />');`
+        /<link\s+rel="canonical"\s+id="canonical-link"\s+href=".*?"\s*\/>/gi,
+        `<link rel="canonical" id="canonical-link" href="${url}" />`
     );
 
     // Replace OG tags
@@ -65,3 +65,32 @@ files.forEach(file => {
 });
 
 console.log("Static route generation for blogs complete.");
+
+// Generate static fallback directories for core routes to prevent server SPA 404 redirects
+const coreRoutes = ['download', 'privacy', 'terms', 'contact', 'install', 'uninstall', 'windows-app-privacy'];
+console.log(`Generating static fallback routes for core pages...`);
+
+coreRoutes.forEach(route => {
+    const url = `https://screenstickynote.com/${route}/`;
+    let specificHtml = baseHtml;
+
+    // Replace canonical tag
+    specificHtml = specificHtml.replace(
+        /<link\s+rel="canonical"\s+id="canonical-link"\s+href=".*?"\s*\/>/gi,
+        `<link rel="canonical" id="canonical-link" href="${url}" />`
+    );
+
+    // Replace OG URL and Twitter URL to match the specific route
+    specificHtml = specificHtml.replace(/<meta\s+property="og:url"\s+content=".*?"\s*\/>/gi, `<meta property="og:url" content="${url}" />`);
+    specificHtml = specificHtml.replace(/<meta\s+property="twitter:url"\s+content=".*?"\s*\/>/gi, `<meta property="twitter:url" content="${url}" />`);
+
+    // Optional: We let App Helmet handle <title> and Description for these generic routes dynamically since they aren't generated from Markdown yet.
+    // However, fixing the canonical avoids "Page with redirect" errors on standard hosting
+
+    const routeDir = path.join(distDir, route);
+    fs.mkdirSync(routeDir, { recursive: true });
+    fs.writeFileSync(path.join(routeDir, 'index.html'), specificHtml);
+    console.log(`- Generated static directory for core route: /${route}/index.html`);
+});
+
+console.log("Static route generation complete.");
