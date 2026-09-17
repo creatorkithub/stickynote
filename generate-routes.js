@@ -38,10 +38,10 @@ files.forEach(file => {
     specificHtml = specificHtml.replace(/<title>.*?<\/title>/gi, `<title>${title}</title>`);
     specificHtml = specificHtml.replace(/<meta\s+name="description"\s+content=".*?"\s*\/>/gi, `<meta name="description" content="${description}" />`);
 
-    // Replace canonical tag
+    // Inject canonical tag
     specificHtml = specificHtml.replace(
-        /<link\s+rel="canonical"\s+id="canonical-link"\s+href=".*?"\s*data-rh="true"\s*\/>/gi,
-        `<link rel="canonical" id="canonical-link" href="${url}" data-rh="true" />`
+        /<\/head>/i,
+        `  <link rel="canonical" id="canonical-link" href="${url}" data-rh="true" />\n</head>`
     );
 
     // Replace OG tags
@@ -74,10 +74,10 @@ coreRoutes.forEach(route => {
     const url = `https://screenstickynote.com/${route}/`;
     let specificHtml = baseHtml;
 
-    // Replace canonical tag
+    // Inject canonical tag
     specificHtml = specificHtml.replace(
-        /<link\s+rel="canonical"\s+id="canonical-link"\s+href=".*?"\s*data-rh="true"\s*\/>/gi,
-        `<link rel="canonical" id="canonical-link" href="${url}" data-rh="true" />`
+        /<\/head>/i,
+        `  <link rel="canonical" id="canonical-link" href="${url}" data-rh="true" />\n</head>`
     );
 
     // Replace OG URL and Twitter URL to match the specific route
