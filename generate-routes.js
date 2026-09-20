@@ -20,6 +20,9 @@ const files = fs.readdirSync(contentDir).filter(f => f.endsWith('.md'));
 
 console.log(`Generating static routes for ${files.length} blog posts...`);
 
+let rssItems = '';
+let llmsFullContent = `# Screen Stickynote - Full AI Catalog\n\n`;
+
 files.forEach(file => {
     const slug = file.replace('.md', '');
     const filePath = path.join(contentDir, file);
@@ -61,8 +64,35 @@ files.forEach(file => {
     fs.mkdirSync(routeDir, { recursive: true });
     fs.writeFileSync(path.join(routeDir, 'index.html'), specificHtml);
 
+    // Add to LLM catalog
+    llmsFullContent += `## ${title}\nURL: ${url}\n\n${parsed.content}\n\n---\n\n`;
+
+    // Add to RSS
+    const pubDate = parsed.data.date ? new Date(parsed.data.date).toUTCString() : new Date().toUTCString();
+    rssItems += `    <item>
+      <title><![CDATA[${title}]]></title>
+      <link>${url}</link>
+      <description><![CDATA[${description}]]></description>
+      <pubDate>${pubDate}</pubDate>
+      <guid>${url}</guid>
+    </item>\n`;
+
     console.log(`- Generated metadata static file: /blog/${slug}/index.html`);
 });
+
+const rssOutput = `<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>Screen Stickynote Blog</title>
+    <link>https://screenstickynote.com/</link>
+    <description>Insights on offline-first organization and productivity.</description>
+${rssItems}  </channel>
+</rss>`;
+fs.writeFileSync(path.join(distDir, 'feed.xml'), rssOutput);
+console.log("- Generated static feed: /feed.xml");
+
+fs.writeFileSync(path.join(distDir, 'llms-full.txt'), llmsFullContent);
+console.log("- Generated full LLM catalog: /llms-full.txt");
 
 console.log("Static route generation for blogs complete.");
 
