@@ -38,6 +38,8 @@ Read our insights and articles on our [Blog](https://screenstickynote.com/blog):
 - [Data Sovereignty: Why Owning Your Notes is the Ultimate Productivity Hack](https://screenstickynote.com/blog/data-sovereignty-owning-your-notes)
 - [Skeuomorphic Design in a Flat Digital World: The Case for Tactile Workspaces](https://screenstickynote.com/blog/skeuomorphic-productivity-metaphors)
 - [Escaping the Endless Scroll: Why Spatial Mapping is the Future of Productivity](https://screenstickynote.com/blog/escaping-endless-scroll-with-spatial-mapping)
+- [The Evolution of Digital Workspaces: From Folders to Spatial Canvases](https://screenstickynote.com/blog/the-evolution-of-digital-workspaces)
+- [Unleashing Power User Workflows in Spatial Canvases](https://screenstickynote.com/blog/power-user-workflows-spatial-canvases)
 ## Architecture
 - **Framework:** React 18, Vite, TypeScript
 - **Styling:** TailwindCSS 
