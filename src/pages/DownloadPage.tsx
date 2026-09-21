@@ -33,7 +33,7 @@ export const DownloadPage: React.FC = () => {
         // Restore meta description on unmount
         return () => {
             if (metaDesc && originalDesc) metaDesc.setAttribute("content", originalDesc);
-            document.title = "Screen Stickynote - Infinite Virtual Canvas & 3D Stickynotes";
+            document.title = "Infinite Virtual Canvas & 3D Sticky notes - Screen Stickynote";
         };
     }, []);
 
