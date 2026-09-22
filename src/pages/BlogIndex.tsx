@@ -12,7 +12,7 @@ export function BlogIndex() {
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 12;
 
-    useSEO({
+    const seoElement = useSEO({
         title: 'Development Blog | Screen Stickynote',
         description: 'Read the latest updates, tutorials, and deep-dives about the Screen Stickynote application.',
     });
@@ -53,6 +53,7 @@ export function BlogIndex() {
 
     return (
         <div className="min-h-screen bg-slate-950 font-sans text-slate-100 flex flex-col">
+            {seoElement}
             <header className="py-6 px-6 sm:px-12 border-b border-slate-900/50 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <Link to="/" className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group">

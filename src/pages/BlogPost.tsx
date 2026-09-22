@@ -59,7 +59,7 @@ export function BlogPost() {
         }
     }, [slug]);
 
-    useSEO({
+    const seoElement = useSEO({
         title: post ? `${post.title} | Screen Stickynote Blog` : 'Loading... | Screen Stickynote Blog',
         description: post?.excerpt,
         imageUrl: post?.thumbnail,
@@ -84,6 +84,7 @@ export function BlogPost() {
 
     return (
         <div className="min-h-screen bg-slate-950 font-sans text-slate-100 flex flex-col relative">
+            {seoElement}
             {/* Reading Progress Bar */}
             <div className="fixed top-0 left-0 w-full h-1 bg-slate-900/50 z-[60]">
                 <div
