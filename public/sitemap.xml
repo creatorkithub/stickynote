@@ -7,170 +7,182 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/privacy</loc>
+    <loc>https://screenstickynote.com/privacy/</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/terms</loc>
+    <loc>https://screenstickynote.com/terms/</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/contact</loc>
+    <loc>https://screenstickynote.com/contact/</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/download</loc>
+    <loc>https://screenstickynote.com/download/</loc>
     <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/windows-app-privacy</loc>
+    <loc>https://screenstickynote.com/windows-app-privacy/</loc>
     <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog</loc>
+    <loc>https://screenstickynote.com/blog/</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/the-cloud-fatigue-epidemic</loc>
+    <loc>https://screenstickynote.com/blog/the-cloud-fatigue-epidemic/</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/spatial-organization-productivity</loc>
+    <loc>https://screenstickynote.com/blog/spatial-organization-productivity/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/visual-thinking-and-color</loc>
+    <loc>https://screenstickynote.com/blog/visual-thinking-and-color/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/why-offline-first-is-the-future</loc>
+    <loc>https://screenstickynote.com/blog/why-offline-first-is-the-future/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/maximizing-screen-real-estate</loc>
+    <loc>https://screenstickynote.com/blog/maximizing-screen-real-estate/</loc>
     <lastmod>2026-09-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/the-psychology-of-visual-planning</loc>
+    <loc>https://screenstickynote.com/blog/the-psychology-of-visual-planning/</loc>
     <lastmod>2026-09-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/the-silent-cost-of-context-switching</loc>
+    <loc>https://screenstickynote.com/blog/the-silent-cost-of-context-switching/</loc>
     <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/digital-minimalism-escaping-tab-clutter</loc>
+    <loc>https://screenstickynote.com/blog/digital-minimalism-escaping-tab-clutter/</loc>
     <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/the-ultimate-guide-to-local-first-applications</loc>
+    <loc>https://screenstickynote.com/blog/the-ultimate-guide-to-local-first-applications/</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/why-infinite-canvas-trumps-folders</loc>
+    <loc>https://screenstickynote.com/blog/why-infinite-canvas-trumps-folders/</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/security-first-client-side-storage</loc>
+    <loc>https://screenstickynote.com/blog/security-first-client-side-storage/</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/designing-for-focus-minimalism</loc>
+    <loc>https://screenstickynote.com/blog/designing-for-focus-minimalism/</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/mastering-visual-organization-with-screen-stickynote</loc>
+    <loc>https://screenstickynote.com/blog/mastering-visual-organization-with-screen-stickynote/</loc>
     <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/overcoming-digital-clutter-with-spatial-thinking</loc>
+    <loc>https://screenstickynote.com/blog/overcoming-digital-clutter-with-spatial-thinking/</loc>
     <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/ultimate-workflow-stickynotes-time-blocking</loc>
+    <loc>https://screenstickynote.com/blog/ultimate-workflow-stickynotes-time-blocking/</loc>
     <lastmod>2026-09-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/privacy-matters-local-first-brainstorming</loc>
+    <loc>https://screenstickynote.com/blog/privacy-matters-local-first-brainstorming/</loc>
     <lastmod>2026-09-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/the-cognitive-science-of-spatial-memory</loc>
+    <loc>https://screenstickynote.com/blog/the-cognitive-science-of-spatial-memory/</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/data-sovereignty-owning-your-notes</loc>
+    <loc>https://screenstickynote.com/blog/data-sovereignty-owning-your-notes/</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/skeuomorphic-productivity-metaphors</loc>
+    <loc>https://screenstickynote.com/blog/skeuomorphic-productivity-metaphors/</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/escaping-endless-scroll-with-spatial-mapping</loc>
+    <loc>https://screenstickynote.com/blog/escaping-endless-scroll-with-spatial-mapping/</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/the-evolution-of-digital-workspaces</loc>
+    <loc>https://screenstickynote.com/blog/the-evolution-of-digital-workspaces/</loc>
     <lastmod>2026-09-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://screenstickynote.com/blog/power-user-workflows-spatial-canvases</loc>
+    <loc>https://screenstickynote.com/blog/power-user-workflows-spatial-canvases/</loc>
     <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://screenstickynote.com/blog/the-philosophy-of-digital-ephemera/</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://screenstickynote.com/blog/minimalist-constraints-creativity/</loc>
+    <lastmod>2026-09-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
