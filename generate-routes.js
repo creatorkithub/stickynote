@@ -37,27 +37,30 @@ files.forEach(file => {
 
     let specificHtml = baseHtml;
 
-    // Regex replacements for standard SEO tags
-    specificHtml = specificHtml.replace(/<title>.*?<\/title>/gi, `<title>${title}</title>`);
-    specificHtml = specificHtml.replace(/<meta\s+name="description"\s+content=".*?"\s*\/>/gi, `<meta name="description" content="${description}" />`);
+    // Remove the native static landing content from the generated routes
+    specificHtml = specificHtml.replace(/<!-- NATIVE STATIC SEO LANDING CONTENT -->[\s\S]*?<\/section>/gi, '');
+
+    // Regex replacements (allowing for data-rh attributes and internal newlines)
+    specificHtml = specificHtml.replace(/<title[^>]*>[\s\S]*?<\/title>/gi, `<title data-rh="true">${title}</title>`);
+    specificHtml = specificHtml.replace(/<meta\s+[^>]*?name="description"[\s\S]*?\/>/gi, `<meta data-rh="true" name="description" content="${description}" />`);
 
     // Replace default canonical tag
     specificHtml = specificHtml.replace(
-        /<link\s+rel="canonical"\s+href="https:\/\/screenstickynote\.com\/"\s*\/>/gi,
-        `<link rel="canonical" id="canonical-link" href="${url}" data-rh="true" />`
+        /<link\s+[^>]*?rel="canonical"[\s\S]*?\/>/gi,
+        `<link data-rh="true" rel="canonical" id="canonical-link" href="${url}" />`
     );
 
     // Replace OG tags
-    specificHtml = specificHtml.replace(/<meta\s+property="og:title"\s+content=".*?"\s*\/>/gi, `<meta property="og:title" content="${title}" />`);
-    specificHtml = specificHtml.replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/>/gi, `<meta property="og:description" content="${description}" />`);
-    specificHtml = specificHtml.replace(/<meta\s+property="og:url"\s+content=".*?"\s*\/>/gi, `<meta property="og:url" content="${url}" />`);
-    specificHtml = specificHtml.replace(/<meta\s+property="og:image"\s+content=".*?"\s*\/>/gi, `<meta property="og:image" content="${imageUrl}" />`);
+    specificHtml = specificHtml.replace(/<meta\s+[^>]*?property="og:title"[\s\S]*?\/>/gi, `<meta data-rh="true" property="og:title" content="${title}" />`);
+    specificHtml = specificHtml.replace(/<meta\s+[^>]*?property="og:description"[\s\S]*?\/>/gi, `<meta data-rh="true" property="og:description" content="${description}" />`);
+    specificHtml = specificHtml.replace(/<meta\s+[^>]*?property="og:url"[\s\S]*?\/>/gi, `<meta data-rh="true" property="og:url" content="${url}" />`);
+    specificHtml = specificHtml.replace(/<meta\s+[^>]*?property="og:image"[\s\S]*?\/>/gi, `<meta data-rh="true" property="og:image" content="${imageUrl}" />`);
 
     // Replace Twitter tags
-    specificHtml = specificHtml.replace(/<meta\s+name="twitter:title"\s+content=".*?"\s*\/>/gi, `<meta name="twitter:title" content="${title}" />`);
-    specificHtml = specificHtml.replace(/<meta\s+name="twitter:description"\s+content=".*?"\s*\/>/gi, `<meta name="twitter:description" content="${description}" />`);
-    specificHtml = specificHtml.replace(/<meta\s+property="twitter:url"\s+content=".*?"\s*\/>/gi, `<meta property="twitter:url" content="${url}" />`);
-    specificHtml = specificHtml.replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/>/gi, `<meta name="twitter:image" content="${imageUrl}" />`);
+    specificHtml = specificHtml.replace(/<meta\s+[^>]*?name="twitter:title"[\s\S]*?\/>/gi, `<meta data-rh="true" name="twitter:title" content="${title}" />`);
+    specificHtml = specificHtml.replace(/<meta\s+[^>]*?name="twitter:description"[\s\S]*?\/>/gi, `<meta data-rh="true" name="twitter:description" content="${description}" />`);
+    specificHtml = specificHtml.replace(/<meta\s+[^>]*?property="twitter:url"[\s\S]*?\/>/gi, `<meta data-rh="true" property="twitter:url" content="${url}" />`);
+    specificHtml = specificHtml.replace(/<meta\s+[^>]*?name="twitter:image"[\s\S]*?\/>/gi, `<meta data-rh="true" name="twitter:image" content="${imageUrl}" />`);
 
     // Write to a dedicated subfolder so /blog/<slug> resolves purely as an identical index file but with unique metadata heads
     const routeDir = path.join(distDir, 'blog', slug);
@@ -104,15 +107,18 @@ coreRoutes.forEach(route => {
     const url = `https://screenstickynote.com/${route}/`;
     let specificHtml = baseHtml;
 
+    // Remove the NATIVE STATIC SEO LANDING CONTENT
+    specificHtml = specificHtml.replace(/<!-- NATIVE STATIC SEO LANDING CONTENT -->[\s\S]*?<\/section>/gi, '');
+
     // Replace default canonical tag
     specificHtml = specificHtml.replace(
-        /<link\s+rel="canonical"\s+href="https:\/\/screenstickynote\.com\/"\s*\/>/gi,
-        `<link rel="canonical" id="canonical-link" href="${url}" data-rh="true" />`
+        /<link\s+[^>]*?rel="canonical"[\s\S]*?\/>/gi,
+        `<link data-rh="true" rel="canonical" id="canonical-link" href="${url}" />`
     );
 
     // Replace OG URL and Twitter URL to match the specific route
-    specificHtml = specificHtml.replace(/<meta\s+property="og:url"\s+content=".*?"\s*\/>/gi, `<meta property="og:url" content="${url}" />`);
-    specificHtml = specificHtml.replace(/<meta\s+property="twitter:url"\s+content=".*?"\s*\/>/gi, `<meta property="twitter:url" content="${url}" />`);
+    specificHtml = specificHtml.replace(/<meta\s+[^>]*?property="og:url"[\s\S]*?\/>/gi, `<meta data-rh="true" property="og:url" content="${url}" />`);
+    specificHtml = specificHtml.replace(/<meta\s+[^>]*?property="twitter:url"[\s\S]*?\/>/gi, `<meta data-rh="true" property="twitter:url" content="${url}" />`);
 
     // Optional: We let App Helmet handle <title> and Description for these generic routes dynamically since they aren't generated from Markdown yet.
     // However, fixing the canonical avoids "Page with redirect" errors on standard hosting
