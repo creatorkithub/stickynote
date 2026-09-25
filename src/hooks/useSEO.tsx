@@ -5,9 +5,10 @@ interface SEOProps {
     description?: string;
     canonicalUrl?: string;
     imageUrl?: string;
+    schemaData?: string;
 }
 
-export function useSEO({ title, description, canonicalUrl, imageUrl }: SEOProps) {
+export function useSEO({ title, description, canonicalUrl, imageUrl, schemaData }: SEOProps) {
     // We can return a Helmet component to be rendered by the consumer page
     return (
         <Helmet>
@@ -26,6 +27,9 @@ export function useSEO({ title, description, canonicalUrl, imageUrl }: SEOProps)
             <meta name="twitter:title" content={title} />
             {description && <meta name="twitter:description" content={description} />}
             {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+
+            {/* Structured Data (JSON-LD Schema) */}
+            {schemaData && <script type="application/ld+json">{schemaData}</script>}
         </Helmet>
     );
 }

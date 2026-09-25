@@ -7,6 +7,7 @@ import { useSEO } from '../hooks/useSEO';
 import type { BlogPostData } from '../types/blog';
 import { ArrowLeft, ArrowUpRight, ArrowUp } from 'lucide-react';
 import { BlogFooter } from '../components/blog/BlogFooter';
+import { AuthorBio } from '../components/blog/AuthorBio';
 import { SiteFooter } from '../components/SiteFooter';
 
 export function BlogPost() {
@@ -59,11 +60,40 @@ export function BlogPost() {
         }
     }, [slug]);
 
+    const schemaObj = post ? {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "datePublished": new Date(post.date).toISOString(),
+        "description": post.excerpt,
+        "image": post.thumbnail,
+        "author": {
+            "@type": "Person",
+            "name": "Balachandar Nadar",
+            "url": "https://www.linkedin.com/in/balachandar-nadar"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Screen Stickynote",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://screenstickynote.com/icon-48.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": slug ? `https://screenstickynote.com/blog/${slug}/` : undefined
+        }
+    } : null;
+
+    const schemaData = schemaObj ? JSON.stringify(schemaObj) : undefined;
+
     const seoElement = useSEO({
         title: post ? `${post.title} | Screen Stickynote Blog` : 'Loading... | Screen Stickynote Blog',
         description: post?.excerpt,
         imageUrl: post?.thumbnail,
         canonicalUrl: slug ? `https://screenstickynote.com/blog/${slug}/` : undefined,
+        schemaData,
     });
 
     if (error) {
@@ -144,6 +174,8 @@ export function BlogPost() {
                                 {post.content}
                             </ReactMarkdown>
                         </div>
+
+                        <AuthorBio />
 
                         <BlogFooter tags={post.tags || []} currentSlug={post.slug} />
                     </article>
