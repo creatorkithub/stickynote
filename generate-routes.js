@@ -100,7 +100,7 @@ console.log("- Generated full LLM catalog: /llms-full.txt");
 console.log("Static route generation for blogs complete.");
 
 // Generate static fallback directories for core routes to prevent server SPA 404 redirects
-const coreRoutes = ['download', 'privacy', 'terms', 'contact', 'install', 'uninstall', 'windows-app-privacy'];
+const coreRoutes = ['download', 'privacy', 'terms', 'contact', 'install', 'uninstall', 'windows-app-privacy', 'about'];
 console.log(`Generating static fallback routes for core pages...`);
 
 coreRoutes.forEach(route => {

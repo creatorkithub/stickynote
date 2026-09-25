@@ -36,7 +36,7 @@
 
   <!-- Google AdSense Auto Ads (Replace client ID with your actual pub ID) -->
   <script defer async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4032375955420309"
     crossorigin="anonymous"></script>
 
   <meta charset="UTF-8" />
@@ -322,7 +322,12 @@
             <div
               class="p-6 rounded-3xl bg-slate-900/30 border border-slate-800/70 flex items-start gap-5 hover:bg-slate-800/40 transition-colors shadow-sm">
               <div class="p-3 bg-emerald-500/10 rounded-xl shrink-0 border border-emerald-500/20">
-                <i data-lucide="layout" class="w-6 h-6 text-emerald-400"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-emerald-400">
+                  <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                  <line x1="3" x2="21" y1="9" y2="9"></line>
+                  <line x1="9" x2="9" y1="21" y2="9"></line>
+                </svg>
               </div>
               <div>
                 <h3 class="text-base font-bold text-slate-200">Daily Kanban</h3>
@@ -484,7 +489,12 @@
         </div>
         <div class="bg-slate-900/40 p-8 rounded-[2rem] border border-slate-800/80 shadow-lg">
           <h2 class="text-xl font-bold text-slate-100 mb-4 flex items-center gap-2">
-            <i data-lucide="layout" class="w-5 h-5 text-rose-400"></i> Key Features & Capabilities
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-rose-400">
+              <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+              <line x1="3" x2="21" y1="9" y2="9"></line>
+              <line x1="9" x2="9" y1="21" y2="9"></line>
+            </svg> Key Features & Capabilities
           </h2>
           <p class="text-sm leading-relaxed mb-4 text-slate-400">
             Our online stickynotes application includes essential features like task reminders, realistic skeuomorphic
@@ -574,31 +584,37 @@
     <!-- Footer / Links -->
     <footer
       class="w-full py-8 md:py-16 bg-slate-950/80 backdrop-blur-sm border-t border-slate-900 flex flex-col items-center shadow-[0_-15px_30px_rgba(0,0,0,0.3)] relative z-10">
-      <div class="max-w-6xl mx-auto px-6 w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
+      <div class="max-w-6xl mx-auto px-6 w-full flex flex-col items-center justify-center gap-8 md:gap-10">
         <div
           class="flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-4 md:gap-8 text-sm font-bold text-slate-500 w-full md:w-auto">
           <a href="/download"
-            class="hover:text-amber-400 flex items-center gap-2 transition-colors border-b-2 border-transparent hover:border-amber-400 pb-1">
+            class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2 rounded-xl flex items-center transition-all shadow-lg hover:shadow-amber-500/20 active:scale-95 shadow-amber-500/10 border border-amber-400/50">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-1.5">
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-1.5">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
               <polyline points="7 10 12 15 17 10"></polyline>
               <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg> Download App
           </a>
-          <a href="/privacy"
-            class="hover:text-amber-400 flex items-center gap-2 transition-colors border-b-2 border-transparent hover:border-amber-400 pb-1">
+          <a href="/about" class="hover:text-amber-400 flex items-center gap-2 transition-colors py-2">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-1.5">
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg> About Us
+          </a>
+          <a href="/privacy" class="hover:text-amber-400 flex items-center gap-2 transition-colors py-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
               <path
                 d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
                 key="oel41y"></path>
             </svg> Privacy Policy
           </a>
-          <a href="/terms"
-            class="hover:text-amber-400 flex items-center gap-2 transition-colors border-b-2 border-transparent hover:border-amber-400 pb-1">
+          <a href="/terms" class="hover:text-amber-400 flex items-center gap-2 transition-colors py-2">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-1.5">
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
               <path
                 d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
                 key="1oefj6"></path>
@@ -608,17 +624,15 @@
               <path d="M16 17H8" key="z1uh3a"></path>
             </svg> Terms of Service
           </a>
-          <a href="/contact"
-            class="hover:text-amber-400 flex items-center gap-2 transition-colors border-b-2 border-transparent hover:border-amber-400 pb-1">
+          <a href="/contact" class="hover:text-amber-400 flex items-center gap-2 transition-colors py-2">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-1.5">
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
               <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" key="132q7q"></path>
               <rect x="2" y="4" width="20" height="16" rx="2" key="izxlao"></rect>
             </svg> Contact Us
           </a>
         </div>
-        <div
-          class="text-sm text-slate-600 font-mono font-medium text-center md:text-right w-full md:w-auto mt-4 md:mt-0">
+        <div class="text-sm text-slate-600 font-mono font-medium text-center w-full mt-2 lg:mt-4">
           &copy; 2026 Screen Stickynote. All rights reserved.
         </div>
       </div>

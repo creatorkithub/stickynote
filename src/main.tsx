@@ -14,6 +14,7 @@ import { BlogIndex } from './pages/BlogIndex';
 import { BlogPost } from './pages/BlogPost';
 import { InstallPage } from './pages/InstallPage';
 import { UninstallPage } from './pages/UninstallPage';
+import { AboutPage } from './pages/AboutPage';
 
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -47,6 +48,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/windows-app-privacy" element={<WindowsAppPrivacyPolicyPage />} />
           <Route path="/terms" element={<TermsOfServicePage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/download" element={<DownloadPage />} />
           <Route path="/blog" element={<BlogIndex />} />
           <Route path="/blog/:slug" element={<BlogPost />} />

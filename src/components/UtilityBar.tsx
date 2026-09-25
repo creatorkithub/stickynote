@@ -729,13 +729,7 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
 
                     {/* Mobile: Horizontal Footer Links */}
                     <div className="lg:hidden flex flex-row flex-wrap items-center justify-center gap-x-5 gap-y-3 w-full py-4 mt-auto mb-2 px-4 shadow-[0_-15px_15px_-15px_rgba(0,0,0,0.5)]">
-                        <a href="/#seo-content" onClick={(e) => {
-                            if (window.location.pathname === '/') {
-                                e.preventDefault();
-                                document.getElementById('seo-content')?.scrollIntoView({ behavior: 'smooth' });
-                            }
-                            setIsMobileMenuOpen(false);
-                        }} className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">About</a>
+                        <a href="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">About Us</a>
                         <a href="/blog" className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">Blog</a>
                         <a href="/privacy" className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">Privacy</a>
                         <a href="/terms" className="text-[11px] font-bold text-slate-400 hover:text-amber-400 transition-colors uppercase tracking-widest whitespace-nowrap">Terms</a>
@@ -752,12 +746,7 @@ export const UtilityBar: React.FC<UtilityBarProps> = ({
                         {/* Dropdown Menu */}
                         <div className="absolute top-full right-0 mt-2 w-36 flex flex-col bg-slate-900/95 backdrop-blur-md border border-slate-700/80 rounded-xl shadow-[0_10px_40px_rgb(0,0,0,0.5)] opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 transition-all duration-200 z-[60] overflow-hidden">
                             <div className="flex flex-col p-1.5 gap-0.5">
-                                <a href="/#seo-content" onClick={(e) => {
-                                    if (window.location.pathname === '/') {
-                                        e.preventDefault();
-                                        document.getElementById('seo-content')?.scrollIntoView({ behavior: 'smooth' });
-                                    }
-                                }} className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">About App</a>
+                                <a href="/about" className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">About Us</a>
                                 <a href="/blog" className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">Visit Blog</a>
                                 <a href="/privacy" className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">Privacy Policy</a>
                                 <a href="/terms" className="text-xs px-3 py-1.5 text-slate-300 hover:text-amber-400 hover:bg-slate-800/80 rounded-lg transition-colors font-medium text-left">Terms of Service</a>

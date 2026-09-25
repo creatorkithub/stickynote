@@ -15,7 +15,7 @@ There are no servers, no accounts, no sync delays, and no telemetry tracking. Yo
 - **PWA Ready**: Natively installable as an offline-capable standalone Progressive Web Application.
 - **Native Windows Bundle**: Available as a natively compiled desktop executable featuring system tray capability.
 
-To access the web app, visit [Screen Stickynote](https://screenstickynote.com/). To get the desktop version, visit the [Download Page](https://screenstickynote.com/download/). Review our [Windows App Privacy Policy](https://screenstickynote.com/windows-app-privacy/), general [Privacy Policy](https://screenstickynote.com/privacy/), and [Terms of Service](https://screenstickynote.com/terms/).
+To access the web app, visit [Screen Stickynote](https://screenstickynote.com/). To learn more about our mission, visit the [About Us](https://screenstickynote.com/about/) page. To get the desktop version, visit the [Download Page](https://screenstickynote.com/download/). Review our [Windows App Privacy Policy](https://screenstickynote.com/windows-app-privacy/), general [Privacy Policy](https://screenstickynote.com/privacy/), and [Terms of Service](https://screenstickynote.com/terms/).
 
 Read our insights and articles on our [Blog](https://screenstickynote.com/blog/):
 - [The Philosophy of Digital Ephemera](https://screenstickynote.com/blog/the-philosophy-of-digital-ephemera/)
