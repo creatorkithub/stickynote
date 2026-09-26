@@ -37,8 +37,12 @@ files.forEach(file => {
 
     let specificHtml = baseHtml;
 
-    // Remove the native static landing content from the generated routes
-    specificHtml = specificHtml.replace(/<!-- NATIVE STATIC SEO LANDING CONTENT -->[\s\S]*?<\/section>/gi, '');
+    // Inject the markdown text structure back into the SEO section for crawlers (prevents thin-content penalty)
+    const safeContent = parsed.content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    specificHtml = specificHtml.replace(
+        /<!-- NATIVE STATIC SEO LANDING CONTENT -->[\s\S]*?<\/section>/gi,
+        `<section id="seo-content" class="sr-only">\n<h1>${parsed.data.title}</h1>\n<p>${description}</p>\n<pre>${safeContent}</pre>\n</section>`
+    );
 
     // Regex replacements (allowing for data-rh attributes and internal newlines)
     specificHtml = specificHtml.replace(/<title[^>]*>[\s\S]*?<\/title>/gi, `<title data-rh="true">${title}</title>`);
@@ -103,12 +107,27 @@ console.log("Static route generation for blogs complete.");
 const coreRoutes = ['download', 'privacy', 'terms', 'contact', 'install', 'uninstall', 'windows-app-privacy', 'about'];
 console.log(`Generating static fallback routes for core pages...`);
 
+const coreRouteDescriptions = {
+    'download': 'Download Screen Stickynote for Windows PC.',
+    'privacy': 'Privacy Policy for Screen Stickynote - We prioritize your data sovereignty. We do not store your data on our servers.',
+    'terms': 'Terms of Service for Screen Stickynote.',
+    'contact': 'Contact Screen Stickynote support team. We would love to hear from you.',
+    'install': 'Screen Stickynote Installation Guide and successful installation.',
+    'uninstall': 'Screen Stickynote Uninstallation complete.',
+    'windows-app-privacy': 'Windows App Privacy Policy for Screen Stickynote.',
+    'about': 'About Screen Stickynote - The infinite virtual canvas entirely offline. We believe that the best ideas need room to grow. Traditional linear to-do lists and narrow text documents force our thoughts into rigid structures.'
+};
+
 coreRoutes.forEach(route => {
     const url = `https://screenstickynote.com/${route}/`;
     let specificHtml = baseHtml;
 
-    // Remove the NATIVE STATIC SEO LANDING CONTENT
-    specificHtml = specificHtml.replace(/<!-- NATIVE STATIC SEO LANDING CONTENT -->[\s\S]*?<\/section>/gi, '');
+    // Replace the NATIVE STATIC SEO LANDING CONTENT with core route fallback text (prevents thin-content penalty)
+    const fallbackText = coreRouteDescriptions[route] || route;
+    specificHtml = specificHtml.replace(
+        /<!-- NATIVE STATIC SEO LANDING CONTENT -->[\s\S]*?<\/section>/gi,
+        `<section id="seo-content" class="sr-only"><h1>${route}</h1><p>${fallbackText}</p></section>`
+    );
 
     // Replace default canonical tag
     specificHtml = specificHtml.replace(
